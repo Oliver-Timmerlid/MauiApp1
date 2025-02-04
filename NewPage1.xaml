@@ -6,8 +6,14 @@
              BackgroundColor="{DynamicResource OffBlack}">
     
     <VerticalStackLayout>
+        <Image
+            Source="textloggo.png"
+            HeightRequest="200"
+            Aspect="AspectFit"
+            SemanticProperties.Description="Alvdalskt hej"
+            Margin="0,50,0,10" />
         <Label 
-            Text="Welcome to SWEDEN!"
+            Text="Här kan vi lägga viktiga andra saker :)"
             TextColor="{DynamicResource Gray100}"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
@@ -18,8 +24,14 @@
                 SemanticProperties.Hint="Return button to go to main page"
                 Clicked="ReturnBtnClicked"
                 HorizontalOptions="Center"
-                BackgroundColor="{DynamicResource Gray100}"
-                TextColor="{DynamicResource OffBlack}"
+                BackgroundColor="{DynamicResource Teal9}"
+                TextColor="{DynamicResource Gray100}"
+                WidthRequest="120"
+                HeightRequest="60"
+                CornerRadius="10"
+                BorderColor="{DynamicResource Gray100}"
+                BorderWidth="3"
+                FontSize="20"
                 Margin="0,50,0,10"/>
     </VerticalStackLayout>
 </ContentPage>
