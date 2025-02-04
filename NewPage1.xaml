@@ -21,7 +21,7 @@
                 x:Name="ReturnBtn"
                 Text="Tillbaka" 
                 SemanticProperties.Hint="Return button to go to main page"
-                Clicked="ReturnBtnClicked"
+                Command="{Binding ReturnCommand}"
                 HorizontalOptions="Center"
                 BackgroundColor="{DynamicResource Teal9}"
                 TextColor="{DynamicResource Gray100}"

@@ -8,26 +8,25 @@
     <ScrollView>
         <VerticalStackLayout Padding="30,0" Spacing="25">
             <Image
-                Source="loggo.png"
-                HeightRequest="280"
+                Margin="0,50,0,10"
                 Aspect="AspectFit"
                 HeightRequest="280"
                 SemanticProperties.Description="Alvdalskt hej"
-                Source="blackwhite.png" />
+                Source="loggo.png" />
             <Button
                 x:Name="StarBtn"
-                Text="Start" 
-                SemanticProperties.Hint="Start button to go to next page"
-                Clicked="StartBtnClicked"
-                HorizontalOptions="Center"
                 BackgroundColor="{DynamicResource Teal9}"
-                TextColor="{DynamicResource Gray100}"
-                WidthRequest="100"
-                HeightRequest="60"
-                CornerRadius="10"
                 BorderColor="{DynamicResource Gray100}"
                 BorderWidth="3"
-                FontSize="20" />
+                Command="{Binding StartCommand}"
+                CornerRadius="10"
+                FontSize="20"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                SemanticProperties.Hint="Start button to go to next page"
+                Text="Start"
+                TextColor="{DynamicResource Gray100}"
+                WidthRequest="100" />
         </VerticalStackLayout>
     </ScrollView>
 
