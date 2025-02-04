@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.NewPage1"
-             Title="NewPage1"
-             BackgroundColor="{DynamicResource OffBlack}">
-    
+<ContentPage
+    x:Class="MauiApp1.NewPage1"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="NewPage1"
+    BackgroundColor="{DynamicResource OffBlack}">
+
     <VerticalStackLayout>
         <Image
             Source="textloggo.png"
@@ -15,9 +16,7 @@
         <Label 
             Text="Här kan vi lägga viktiga andra saker :)"
             TextColor="{DynamicResource Gray100}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            Margin="0,50,0,10"/>
+            VerticalOptions="Center" />
         <Button
                 x:Name="ReturnBtn"
                 Text="Tillbaka" 
