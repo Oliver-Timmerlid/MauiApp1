@@ -10,7 +10,7 @@
             Spacing="25">
           
             <Image
-                Source="blackwhite.png"
+                Source="loggo.png"
                 HeightRequest="280"
                 Aspect="AspectFit"
                 SemanticProperties.Description="Alvdalskt hej"
@@ -21,10 +21,15 @@
                 SemanticProperties.Hint="Start button to go to next page"
                 Clicked="StartBtnClicked"
                 HorizontalOptions="Center"
-                BackgroundColor="{DynamicResource Gray100}"
-                TextColor="{DynamicResource OffBlack}"
+                BackgroundColor="{DynamicResource Teal9}"
+                TextColor="{DynamicResource Gray100}"
                 WidthRequest="100"
-                HeightRequest="60"/>
+                HeightRequest="60"
+                CornerRadius="10"
+                BorderColor="{DynamicResource Gray100}"
+                BorderWidth="3"
+                FontSize="20"
+                />
         </VerticalStackLayout>
     </ScrollView>
 
