@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="MauiApp1.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -7,23 +7,27 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="30,0" Spacing="25">
-
             <Image
-                Margin="0,50,0,10"
+                Source="loggo.png"
+                HeightRequest="280"
                 Aspect="AspectFit"
                 HeightRequest="280"
                 SemanticProperties.Description="Alvdalskt hej"
                 Source="blackwhite.png" />
             <Button
                 x:Name="StarBtn"
-                BackgroundColor="{DynamicResource Gray100}"
-                Command="{Binding StartCommand}"
-                HeightRequest="60"
-                HorizontalOptions="Center"
+                Text="Start" 
                 SemanticProperties.Hint="Start button to go to next page"
-                Text="Start"
-                TextColor="{DynamicResource OffBlack}"
-                WidthRequest="100" />
+                Clicked="StartBtnClicked"
+                HorizontalOptions="Center"
+                BackgroundColor="{DynamicResource Teal9}"
+                TextColor="{DynamicResource Gray100}"
+                WidthRequest="100"
+                HeightRequest="60"
+                CornerRadius="10"
+                BorderColor="{DynamicResource Gray100}"
+                BorderWidth="3"
+                FontSize="20" />
         </VerticalStackLayout>
     </ScrollView>
 
