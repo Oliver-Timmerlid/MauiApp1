@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp1.ListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ViewModel="clr-namespace:MauiApp1.ViewModel"
+    Title="NewPage1"
+    x:DataType="ViewModel:ListPageViewModel"
+    BackgroundColor="{DynamicResource OffBlack}"
+    Shell.NavBarIsVisible="False">
+
+    <VerticalStackLayout>
+        <Button Command="{Binding ScanForDevicesCommand}" Text="Scan for Devices" />
+        <CollectionView ItemsSource="{Binding Devices}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding .}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

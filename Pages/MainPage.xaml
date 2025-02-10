@@ -3,6 +3,8 @@
     x:Class="MauiApp1.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ViewModel="clr-namespace:MauiApp1.ViewModel"
+    x:DataType="ViewModel:MainViewModel"
     BackgroundColor="{DynamicResource OffBlack}">
 
     <ScrollView>
@@ -18,13 +20,28 @@
                 BackgroundColor="{DynamicResource Teal9}"
                 BorderColor="{DynamicResource Gray100}"
                 BorderWidth="3"
-                Command="{Binding StartCommand}"
+                Command="{Binding StartBroadcastingCommand}"
                 CornerRadius="10"
                 FontSize="20"
                 HeightRequest="60"
                 HorizontalOptions="Center"
                 SemanticProperties.Hint="Start button to go to next page"
                 Text="Start"
+                TextColor="{DynamicResource Gray100}"
+                WidthRequest="100" />
+
+            <Button
+                x:Name="StopBtn"
+                BackgroundColor="{DynamicResource Teal9}"
+                BorderColor="{DynamicResource Gray100}"
+                BorderWidth="3"
+                Command="{Binding StopBroadcastingCommand}"
+                CornerRadius="10"
+                FontSize="20"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                SemanticProperties.Hint="Stop button to go to next page"
+                Text="Stop"
                 TextColor="{DynamicResource Gray100}"
                 WidthRequest="100" />
         </VerticalStackLayout>
