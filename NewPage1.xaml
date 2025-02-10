@@ -6,50 +6,52 @@
     Title="NewPage1"
     BackgroundColor="{DynamicResource OffBlack}">
 
-    <VerticalStackLayout>
-        <Image
-            Source="textloggo.png"
-            HeightRequest="200"
-            Aspect="AspectFit"
-            SemanticProperties.Description="Alvdalskt hej"
-            Margin="0,50,0,10" />
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" /> 
-        <ListView
-            x:Name="DevicesListView"
-            SelectionMode="None"
-            SeparatorVisibility="None"
-            BackgroundColor="{DynamicResource OffBlack}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout
-                            Padding="10"
-                            BackgroundColor="{DynamicResource Teal9}"
-                            Margin="10,0,10,10">
-                            <Label
-                                Text="{Binding Name}"
-                                TextColor="{DynamicResource Gray100}"
-                                FontSize="20"
-                                VerticalOptions="Center" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button
-            x:Name="ReturnBtn"
-            Text="Tillbaka" 
-            SemanticProperties.Hint="Return button to go to main page"
-            Command="{Binding ReturnCommand}"
-            HorizontalOptions="Center"
-            BackgroundColor="{DynamicResource Teal9}"
-            TextColor="{DynamicResource Gray100}"
-            WidthRequest="120"
-            HeightRequest="60"
-            CornerRadius="10"
-            BorderColor="{DynamicResource Gray100}"
-            BorderWidth="3"
-            FontSize="20"
-            Margin="0,50,0,10"/>
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Image
+                Source="textloggo.png"
+                HeightRequest="200"
+                Aspect="AspectFit"
+                SemanticProperties.Description="Alvdalskt hej"
+                Margin="0,50,0,10" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" /> 
+            <ListView
+                x:Name="DevicesListView"
+                SelectionMode="None"
+                SeparatorVisibility="None"
+                BackgroundColor="{DynamicResource OffBlack}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                Padding="10"
+                                BackgroundColor="{DynamicResource Teal9}"
+                                Margin="10,0,10,10">
+                                <Label
+                                    Text="{Binding Name}"
+                                    TextColor="{DynamicResource Gray100}"
+                                    FontSize="20"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button
+                x:Name="ReturnBtn"
+                Text="Tillbaka" 
+                SemanticProperties.Hint="Return button to go to main page"
+                Command="{Binding ReturnCommand}"
+                HorizontalOptions="Center"
+                BackgroundColor="{DynamicResource Teal9}"
+                TextColor="{DynamicResource Gray100}"
+                WidthRequest="120"
+                HeightRequest="60"
+                CornerRadius="10"
+                BorderColor="{DynamicResource Gray100}"
+                BorderWidth="3"
+                FontSize="20"
+                Margin="0,50,0,10"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
