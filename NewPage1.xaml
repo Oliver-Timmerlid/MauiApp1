@@ -14,7 +14,11 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="Alvdalskt hej"
                 Margin="0,50,0,10" />
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" /> 
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" 
+                               Color="{DynamicResource Teal9}" 
+                               Margin="0,20,0,0"
+                               WidthRequest="100"
+                               HeightRequest="100" />
             <ListView
                 x:Name="DevicesListView"
                 SelectionMode="None"
