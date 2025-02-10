@@ -4,14 +4,28 @@ using Plugin.BLE.Abstractions.Contracts;
 using System.Collections.Generic;
 using Plugin.BLE;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MauiApp1;
 
-public partial class NewPage1 : ContentPage
+public partial class NewPage1 : ContentPage, INotifyPropertyChanged
 {
     private IBluetoothLE _bluetoothLE;
     private IAdapter _adapter;
+    private bool _isBusy;
     public List<IDevice> Items { get; set; }
+
+    public bool IsBusy
+    {
+        get => _isBusy;
+        set
+        {
+            _isBusy = value;
+            OnPropertyChanged();
+        }
+    }
 
     public NewPage1()
     {
@@ -20,6 +34,7 @@ public partial class NewPage1 : ContentPage
         _bluetoothLE = CrossBluetoothLE.Current;
         _adapter = CrossBluetoothLE.Current.Adapter;
         Items = new List<IDevice>();
+
         DevicesListView.ItemsSource = Items;
     }
 
@@ -34,29 +49,46 @@ public partial class NewPage1 : ContentPage
 
     private async Task HandleBluetooth()
     {
+        IsBusy = true;
         if (_bluetoothLE.State == BluetoothState.On)
+    {
+        Items.Clear(); // Clear the existing list before scanning
+        _adapter.DeviceDiscovered += (s, a) =>
         {
-            var devices = _adapter.GetSystemConnectedOrPairedDevices().ToList();
-            if (devices.Count == 0)
+
+            if (!Items.Contains(a.Device)) // Prevent duplicates
             {
-                await DisplayAlert("No Device", "No connected or paired devices found.", "OK");
+                Items.Add(a.Device);
             }
-            else
-            {
-                Items.Clear();
-                foreach (var device in devices)
-                {
-                    Items.Add(device);
-                    await DisplayAlert("Device Found", $"Connected to {device.Name}", "OK");
-                }
-                await DisplayAlert("Devices Found", $"{devices.Count} device(s) found.", "OK");
-            }
+        };
+
+        await _adapter.StartScanningForDevicesAsync(); // Start scanning
+
+        if (Items.Count == 0)
+        {
+            await DisplayAlert("No Devices Found", "No nearby Bluetooth devices detected.", "OK");
         }
         else
         {
-            await DisplayAlert("Bluetooth Off", "Please turn on Bluetooth.", "OK");
+            //await DisplayAlert("Scan Complete", $"{Items.Count} device(s) found.", "OK");
         }
+
+        DevicesListView.ItemsSource = null;
+        DevicesListView.ItemsSource = Items; // Refresh ListView
+    }
+    else
+    {
+        await DisplayAlert("Bluetooth Off", "Please turn on Bluetooth.", "OK");
+    }
+        IsBusy = false;
+
     }
 
     public ICommand ReturnCommand => new Command(async () => await Shell.Current.GoToAsync(".."));
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }
