@@ -13,6 +13,7 @@
             Aspect="AspectFit"
             SemanticProperties.Description="Alvdalskt hej"
             Margin="0,50,0,10" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" /> 
         <ListView
             x:Name="DevicesListView"
             SelectionMode="None"
