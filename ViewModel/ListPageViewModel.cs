@@ -14,6 +14,9 @@ namespace MauiApp1.ViewModel
         [ObservableProperty]
         private ObservableCollection<Model.IDevice> devices = new ObservableCollection<Model.IDevice>();
 
+        [ObservableProperty]
+        private bool isLoading;
+
         public ListPageViewModel(BluetoothScanService scanService)
         {
             _scanService = scanService;
@@ -22,12 +25,14 @@ namespace MauiApp1.ViewModel
         [RelayCommand]
         private async Task ScanForDevicesAsync()
         {
+            IsLoading = true;
             Devices.Clear();
             var scannedDevices = await _scanService.StartScanningAsync();
             foreach (var device in scannedDevices)
             {
                 Devices.Add(device);
             }
+            IsLoading = false;
         }
     }
 }

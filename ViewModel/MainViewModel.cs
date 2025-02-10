@@ -7,22 +7,22 @@ namespace MauiApp1.ViewModel;
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly BluetoothBroadcastService _broadcastService;
+    private readonly BluetoothAdvertisementService _broadcastService;
 
-    public MainViewModel(BluetoothBroadcastService broadcastService)
+    public MainViewModel(BluetoothAdvertisementService broadcastService)
     {
         _broadcastService = broadcastService;
     }
 
     [RelayCommand]
-    private async Task StartBroadcasting()
+    private void  StartBroadcasting()
     {
-        await _broadcastService.StartBroadcastingAsync();
+         _broadcastService.StartAdvertisementAsync();
     }
 
     [RelayCommand]
-    private async Task StopBroadcasting()
+    private void StopBroadcasting()
     {
-        await _broadcastService.StopBroadcastingAsync();
+         _broadcastService.StopAdvertisementAsync();
     }
 }

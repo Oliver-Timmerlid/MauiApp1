@@ -22,8 +22,9 @@ namespace MauiApp1
             // Register Bluetooth services
             builder.Services.AddSingleton<IBluetoothLE>(CrossBluetoothLE.Current);
             builder.Services.AddSingleton<IAdapter>(CrossBluetoothLE.Current.Adapter);
-            builder.Services.AddSingleton<BluetoothBroadcastService>();
+
             builder.Services.AddSingleton<BluetoothScanService>();
+            builder.Services.AddSingleton<BluetoothAdvertisementService>();
 
             // Register pages and view models as singletons
             builder.Services.AddSingleton<MainPage>();
