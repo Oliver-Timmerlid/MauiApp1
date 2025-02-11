@@ -23,7 +23,7 @@ namespace MauiApp1
 
         public ICommand StartCommand => new Command(async () =>
         {
-            await Navigation.PushAsync(new NewPage1());
+            await Navigation.PushAsync(new ListDevices());
         });
 
 

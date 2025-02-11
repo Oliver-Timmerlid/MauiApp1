@@ -17,7 +17,7 @@ namespace MauiApp1
 
             builder.Services.AddSingleton<MainPage>();
 
-            builder.Services.AddTransient<NewPage1>();
+            builder.Services.AddTransient<ListDevices>();
 
 #if DEBUG
             builder.Logging.AddDebug();

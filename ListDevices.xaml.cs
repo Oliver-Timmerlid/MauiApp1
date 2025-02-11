@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace MauiApp1;
 
-public partial class NewPage1 : ContentPage, INotifyPropertyChanged
+public partial class ListDevices : ContentPage, INotifyPropertyChanged
 {
     private IBluetoothLE _bluetoothLE;
     private IAdapter _adapter;
@@ -27,7 +27,7 @@ public partial class NewPage1 : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public NewPage1()
+    public ListDevices()
     {
         InitializeComponent();
         BindingContext = this;
