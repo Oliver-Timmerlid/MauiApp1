@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Shiny.BluetoothLE;
+using Shiny.BluetoothLE.Managed;
 
 namespace MauiApp1;
 
@@ -51,35 +53,35 @@ public partial class NewPage1 : ContentPage, INotifyPropertyChanged
     {
         IsBusy = true;
         if (_bluetoothLE.State == BluetoothState.On)
-    {
-        Items.Clear(); // Clear the existing list before scanning
-        _adapter.DeviceDiscovered += (s, a) =>
         {
-
-            if (!Items.Contains(a.Device)) // Prevent duplicates
+            Items.Clear(); // Clear the existing list before scanning
+            _adapter.DeviceDiscovered += (s, a) =>
             {
-                Items.Add(a.Device);
+
+                if (!Items.Contains(a.Device)) // Prevent duplicates
+                {
+                    Items.Add(a.Device);
+                }
+            };
+
+            await _adapter.StartScanningForDevicesAsync(); // Start scanning
+
+            if (Items.Count == 0)
+            {
+                await DisplayAlert("No Devices Found", "No nearby Bluetooth devices detected.", "OK");
             }
-        };
+            else
+            {
+                //await DisplayAlert("Scan Complete", $"{Items.Count} device(s) found.", "OK");
+            }
 
-        await _adapter.StartScanningForDevicesAsync(); // Start scanning
-
-        if (Items.Count == 0)
-        {
-            await DisplayAlert("No Devices Found", "No nearby Bluetooth devices detected.", "OK");
+            DevicesListView.ItemsSource = null;
+            DevicesListView.ItemsSource = Items; // Refresh ListView
         }
         else
         {
-            //await DisplayAlert("Scan Complete", $"{Items.Count} device(s) found.", "OK");
+            await DisplayAlert("Bluetooth Off", "Please turn on Bluetooth.", "OK");
         }
-
-        DevicesListView.ItemsSource = null;
-        DevicesListView.ItemsSource = Items; // Refresh ListView
-    }
-    else
-    {
-        await DisplayAlert("Bluetooth Off", "Please turn on Bluetooth.", "OK");
-    }
         IsBusy = false;
 
     }
