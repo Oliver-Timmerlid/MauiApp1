@@ -36,11 +36,18 @@ public class BluetoothScan
             return _devices;
         }
 
+        
+
         _logger.LogInformation("Starting BLE scan...");
         _scanner = _bleManager.CreateManagedScanner();
 
         // Clear any existing devices
         _devices.Clear();
+
+        await _scanner.Start();
+        _logger.LogInformation("Scan started successfully.");
+
+        await Task.Delay(TimeSpan.FromSeconds(30)); // Simulate scan duration
 
         // Subscribe to the Peripherals collection changes
         _scanner.Peripherals
@@ -53,10 +60,7 @@ public class BluetoothScan
                 }
             });
 
-        await _scanner.Start();
-        _logger.LogInformation("Scan started successfully.");
-
-        await Task.Delay(TimeSpan.FromSeconds(30)); // Simulate scan duration
+        
 
         StopScanning();
 
