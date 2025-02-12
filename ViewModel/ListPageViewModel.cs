@@ -12,7 +12,7 @@ public partial class ListPageViewModel : ObservableObject
     private readonly BluetoothScan _bluetoothScan;
 
     [ObservableProperty]
-    private ObservableCollection<ManagedScanResult> devices = new();
+    private ObservableCollection<ManagedScanResult> _devices;
 
     [ObservableProperty]
     private bool isLoading;
@@ -20,13 +20,13 @@ public partial class ListPageViewModel : ObservableObject
     public ListPageViewModel(BluetoothScan bluetoothScan)
     {
         _bluetoothScan = bluetoothScan;
+        _devices = new ObservableCollection<ManagedScanResult>();
     }
 
     [RelayCommand]
-    private async Task ScanForDevicesAsync()
+    private async Task StartScanning()
     {
         IsLoading = true;
-        Devices.Clear();
 
         var status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
         if (status != PermissionStatus.Granted)
@@ -36,10 +36,7 @@ public partial class ListPageViewModel : ObservableObject
         }
 
         var scannedDevices = await _bluetoothScan.StartScanningAsync();
-        foreach (var device in scannedDevices)
-        {
-            Devices.Add(device);
-        }
+        Devices = new ObservableCollection<ManagedScanResult>(scannedDevices);
         IsLoading = false;
     }
 }

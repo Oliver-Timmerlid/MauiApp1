@@ -11,7 +11,7 @@
     Shell.NavBarIsVisible="False">
 
     <VerticalStackLayout Padding="20">
-        <Button Command="{Binding ScanForDevicesCommand}" Text="Scan for Devices" />
+        <Button Command="{Binding StartScanningCommand}" Text="Scan for Devices" />
         <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
 
         <ScrollView>
