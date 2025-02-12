@@ -1,7 +1,5 @@
 ﻿using MauiApp1.Services;
 using Microsoft.Extensions.Logging;
-using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE;
 using MauiApp1.ViewModel;
 using Shiny;
 
@@ -22,8 +20,7 @@ namespace MauiApp1
                 });
 
             // Register Bluetooth services
-            builder.Services.AddSingleton<IBluetoothLE>(CrossBluetoothLE.Current);
-            builder.Services.AddSingleton<IAdapter>(CrossBluetoothLE.Current.Adapter);
+            builder.Services.AddBluetoothLeHosting();
             builder.Services.AddBluetoothLE();
             builder.Services.AddLogging();
 

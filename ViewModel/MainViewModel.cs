@@ -23,6 +23,6 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void StopBroadcasting()
     {
-         _broadcastService.StopAdvertisementAsync();
+         _broadcastService.StopAdvertisement();
     }
 }
