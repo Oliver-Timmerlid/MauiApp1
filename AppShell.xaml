@@ -4,12 +4,20 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MauiApp1"
-    Shell.FlyoutBehavior="Disabled"
     Title="MauiApp1">
 
-    <ShellContent
+    <!--<ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="MainPage" />-->
+
+    <TabBar>
+        <Tab Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+        <Tab Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate local:ListPage}" />
+        </Tab>
+    </TabBar>
 
 </Shell>
