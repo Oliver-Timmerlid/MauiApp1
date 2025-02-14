@@ -35,7 +35,9 @@ public partial class ListPageViewModel : ObservableObject
             return;
         }
 
-        var scannedDevices = await _bluetoothScan.StartScanningAsync();
+        //Lagt till targetUuid. Detta filtrerar på en specifik tjänst. Kopplas till bluetoothscan.cs
+        var targetUuid = new Guid("12345678-1234-1234-1234-1234567890ab");
+        var scannedDevices = await _bluetoothScan.StartScanningAsync(targetUuid);
         Devices = new ObservableCollection<ManagedScanResult>(scannedDevices);
         IsLoading = false;
     }
