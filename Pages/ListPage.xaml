@@ -23,7 +23,8 @@
                             Padding="10"
                             BackgroundColor="LightGray">
                             <Label FontSize="18" Text="{Binding Peripheral.Name, StringFormat='Device: {0}'}" />
-                            <Label FontSize="14" Text="{Binding Peripheral.Uuid, StringFormat='UUID: {0}'}" />
+                            <Label FontSize="18" Text="{Binding LocalName, StringFormat='Device: {0}'}" />
+                            <Label FontSize="14" Text="{Binding ServiceUuids[0], StringFormat='UUID: {0}'}" />
                             <Label FontSize="14" Text="{Binding Rssi, StringFormat='Signal Strength: {0} dBm'}" />
                         </VerticalStackLayout>
                     </DataTemplate>
