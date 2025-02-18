@@ -47,11 +47,11 @@ public class BluetoothScan
 
         await _scanner.Start(new ScanConfig
         {
-            ServiceUuids = new[] { serviceUuid.ToString() } // 👈 Add filter here
+            //ServiceUuids = new[] { serviceUuid.ToString() } // 👈 Add filter here
         });
         _logger.LogInformation("Scan started successfully.");
 
-        await Task.Delay(TimeSpan.FromSeconds(30)); // Simulate scan duration
+        await Task.Delay(TimeSpan.FromSeconds(15)); // Simulate scan duration
 
         // Subscribe to the Peripherals collection changes
         _scanner.Peripherals
