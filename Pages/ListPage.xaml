@@ -10,26 +10,34 @@
     BackgroundColor="{DynamicResource OffBlack}"
     Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout Padding="20">
-        <Button Command="{Binding StartScanningCommand}" Text="Scan for Devices" />
-        <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <ScrollView>
-            <CollectionView ItemsSource="{Binding Devices}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="ble:ManagedScanResult">
-                        <VerticalStackLayout
-                            Margin="5"
-                            Padding="10"
-                            BackgroundColor="LightGray">
-                            <Label FontSize="18" Text="{Binding Peripheral.Name, StringFormat='Device: {0}'}" />
-                            <Label FontSize="18" Text="{Binding LocalName, StringFormat='Device: {0}'}" />
-                            <Label FontSize="14" Text="{Binding ServiceUuids[0], StringFormat='UUID: {0}'}" />
-                            <Label FontSize="14" Text="{Binding Rssi, StringFormat='Signal Strength: {0} dBm'}" />
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
-    </VerticalStackLayout>
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Devices}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="ble:ManagedScanResult">
+                    <VerticalStackLayout
+                        Margin="5"
+                        Padding="10"
+                        BackgroundColor="{DynamicResource Teal9}">
+                        <Label FontSize="18" Text="{Binding Peripheral.Name, StringFormat='Device: {0}'}" />
+
+                        <Label FontSize="14" Text="{Binding ServiceUuids[0], StringFormat='UUID: {0}'}" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <HorizontalStackLayout Grid.Row="1" Padding="10">
+            <Label Text="Start Scanning" VerticalOptions="Center" />
+            <Switch IsToggled="{Binding IsToggled, Mode=TwoWay}" WidthRequest="200" />
+            <ActivityIndicator
+                IsRunning="{Binding IsScanning}"
+                IsVisible="{Binding IsScanning}"
+                VerticalOptions="Center" />
+        </HorizontalStackLayout>
+    </Grid>
 </ContentPage>

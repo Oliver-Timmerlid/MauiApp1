@@ -17,12 +17,12 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void  StartBroadcasting()
     {
-         _broadcastService.StartAdvertisementAsync();
+         //_broadcastService.StartAdvertisementAsync();
     }
 
     [RelayCommand]
     private void StopBroadcasting()
     {
-         _broadcastService.StopAdvertisement();
+         //_broadcastService.StopAdvertisement();
     }
 }

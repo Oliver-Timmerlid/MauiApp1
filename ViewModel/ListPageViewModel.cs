@@ -10,35 +10,72 @@ namespace MauiApp1.ViewModel;
 public partial class ListPageViewModel : ObservableObject
 {
     private readonly BluetoothScan _bluetoothScan;
+    private readonly BluetoothAdvertisementService _bluetoothAdvertisementService;
+    private readonly Guid targetUuid = new("12345678-1234-1234-1234-1234567890ab");
 
     [ObservableProperty]
     private ObservableCollection<ManagedScanResult> _devices;
 
     [ObservableProperty]
-    private bool isLoading;
+    private bool isScanning;
 
-    public ListPageViewModel(BluetoothScan bluetoothScan)
+    [ObservableProperty]
+    private bool isToggled;
+
+    public ListPageViewModel(BluetoothAdvertisementService advertisementService, BluetoothScan bluetoothScan)
     {
+        _bluetoothAdvertisementService = advertisementService;
         _bluetoothScan = bluetoothScan;
-        _devices = new ObservableCollection<ManagedScanResult>();
+        _devices = [];
     }
 
-    [RelayCommand]
+    partial void OnIsToggledChanged(bool value)
+    {
+        if (value)
+        {
+            _ = StartScanning();
+            _ = _bluetoothAdvertisementService.StartAdvertisementAsync(targetUuid);
+        }
+        else
+        {
+            _bluetoothScan.StopScanning();
+            _bluetoothAdvertisementService.StopAdvertisement();
+            IsScanning = false;
+        }
+    }
+
     private async Task StartScanning()
     {
-        IsLoading = true;
+        IsScanning = true;
 
         var status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
         if (status != PermissionStatus.Granted)
         {
-            IsLoading = false;
+            IsScanning = false;
+            IsToggled = false;
             return;
         }
 
-        //Lagt till targetUuid. Detta filtrerar på en specifik tjänst. Kopplas till bluetoothscan.cs
-        var targetUuid = new Guid("12345678-1234-1234-1234-1234567890ab");
-        var scannedDevices = await _bluetoothScan.StartScanningAsync(targetUuid);
-        Devices = new ObservableCollection<ManagedScanResult>(scannedDevices);
-        IsLoading = false;
+
+        // Loop to scan for devices every 10 seconds
+        while (IsToggled)
+        {
+            var scannedDevices = await _bluetoothScan.StartScanningAsync(targetUuid);
+
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                foreach (var device in scannedDevices)
+                {
+                    if (!Devices.Any(d => d.Peripheral.Equals(device.Peripheral)))
+                    {
+                        Devices.Add(device);
+                    }
+                }
+            });
+
+            await Task.Delay(10000); // Pause for 10 seconds
+        }
+
+        IsScanning = false;
     }
 }

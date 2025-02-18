@@ -17,17 +17,15 @@ namespace MauiApp1.Services
             _logger = logger;
         }
 
-        public async Task StartAdvertisementAsync()
+        public async Task StartAdvertisementAsync(Guid serviceUuid)
         {
             try
             {
-
-                var customUuid = new Guid("12345678-1234-1234-1234-1234567890ab"); // Replace with your custom UUID
                 await _manager.StartAdvertising(new AdvertisementOptions
                 {
-                    ServiceUuids = new string[] { customUuid.ToString() }
+                    ServiceUuids = new string[] { serviceUuid.ToString() }
                 });
-                _logger.LogInformation($"Advertisement started successfully with UUID: {customUuid}");
+                _logger.LogInformation($"Advertisement started successfully with UUID: {serviceUuid}");
             }
             catch (Exception ex)
             {
