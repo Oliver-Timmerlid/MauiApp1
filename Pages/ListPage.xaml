@@ -24,8 +24,8 @@
                         Padding="10"
                         BackgroundColor="{DynamicResource Teal9}">
                         <Label FontSize="18" Text="{Binding Peripheral.Name, StringFormat='Device: {0}'}" />
-
-                        <Label FontSize="14" Text="{Binding ServiceUuids[0], StringFormat='UUID: {0}'}" />
+                        <Label FontSize="18" Text="{Binding Uuid, StringFormat='Device: {0}'}" />  <!--kan vara unik-->
+                        <Label FontSize="14" Text="{Binding ServiceUuids[0], StringFormat='UUID: {0}'}" /> <!--detta är vårt eget serviceuuid, som är "filter"-->
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

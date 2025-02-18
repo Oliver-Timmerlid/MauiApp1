@@ -11,6 +11,7 @@ public partial class ListPageViewModel : ObservableObject
 {
     private readonly BluetoothScan _bluetoothScan;
     private readonly BluetoothAdvertisementService _bluetoothAdvertisementService;
+    private readonly Notify _notify;
     private readonly Guid targetUuid = new("12345678-1234-1234-1234-1234567890ab");
 
     [ObservableProperty]
@@ -22,10 +23,11 @@ public partial class ListPageViewModel : ObservableObject
     [ObservableProperty]
     private bool isToggled;
 
-    public ListPageViewModel(BluetoothAdvertisementService advertisementService, BluetoothScan bluetoothScan)
+    public ListPageViewModel(BluetoothAdvertisementService advertisementService, BluetoothScan bluetoothScan, Notify notify)
     {
         _bluetoothAdvertisementService = advertisementService;
         _bluetoothScan = bluetoothScan;
+        _notify = notify;
         _devices = [];
     }
 
@@ -61,6 +63,7 @@ public partial class ListPageViewModel : ObservableObject
         while (IsToggled)
         {
             var scannedDevices = await _bluetoothScan.StartScanningAsync(targetUuid);
+            //var scannedDevices = await _bluetoothScan.StartScanningAsync(Guid.Empty);
 
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
@@ -69,6 +72,7 @@ public partial class ListPageViewModel : ObservableObject
                     if (!Devices.Any(d => d.Peripheral.Equals(device.Peripheral)))
                     {
                         Devices.Add(device);
+                        _ = _notify.SendNotificationAsync("New Device Found", $"Device: {device.Peripheral.Name}");
                     }
                 }
             });

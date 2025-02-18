@@ -23,10 +23,12 @@ namespace MauiApp1
             builder.Services.AddBluetoothLeHosting();
             builder.Services.AddBluetoothLE();
             builder.Services.AddLogging();
+            builder.Services.AddNotifications();
 
             //builder.Services.AddSingleton<BluetoothScanService>();
             builder.Services.AddSingleton<BluetoothAdvertisementService>();
             builder.Services.AddSingleton<BluetoothScan>();
+            builder.Services.AddSingleton<Notify>();
 
 
             // Register pages and view models as singletons
