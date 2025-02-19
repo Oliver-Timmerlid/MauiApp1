@@ -17,7 +17,7 @@ public class Notify
 
     public async Task SendNotificationAsync(string title, string message)
     {
-        var result = await _notificationManager.RequestAccess(AccessRequestFlags.All);
+        var result = await _notificationManager.RequestAccess();
         _logger.LogInformation($"Notification access request result: {result}");
 
         if (result == AccessState.Available)
