@@ -65,6 +65,8 @@ public partial class ListPageViewModel : ObservableObject
             var scannedDevices = await _bluetoothScan.StartScanningAsync(targetUuid);
             //var scannedDevices = await _bluetoothScan.StartScanningAsync(Guid.Empty);
 
+            _notify.CreateNotificationChannel();
+
             await MainThread.InvokeOnMainThreadAsync(() =>
             {
                 foreach (var device in scannedDevices)
@@ -72,6 +74,7 @@ public partial class ListPageViewModel : ObservableObject
                     if (!Devices.Any(d => d.Peripheral.Equals(device.Peripheral)))
                     {
                         Devices.Add(device);
+                        
                         _ = _notify.SendNotificationAsync("New Device Found", $"Device: {device.Peripheral.Name}");
                     }
                 }

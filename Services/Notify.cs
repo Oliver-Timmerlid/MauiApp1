@@ -26,6 +26,7 @@ public class Notify
             {
                 Title = title,
                 Message = message,
+                Channel = "SoundChannel",
                 ScheduleDate = null // Set this to schedule it later
             };
 
@@ -37,4 +38,23 @@ public class Notify
             _logger.LogWarning("Notification access denied.");
         }
     }
+    public void CreateNotificationChannel()
+    {
+        var existingChannels = _notificationManager.GetChannels();
+            // Check if the channel "SoundChannel" already exists
+        if (existingChannels.Any(c => c.Identifier == "SoundChannel"))
+        {
+            _logger.LogInformation("Notification channel 'SoundChannel' already exists. Skipping creation.");
+            return;
+        }
+        this._notificationManager.AddChannel(new Channel
+        {
+            Identifier = "SoundChannel",
+            Importance = ChannelImportance.High
+        });
+    }
+
+
+
+
 }
