@@ -45,7 +45,7 @@ public partial class ListPageViewModel : ObservableObject
             IsScanning = false;
         }
     }
-
+    
     private async Task StartScanning()
     {
         IsScanning = true;
