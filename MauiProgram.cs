@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using MauiApp1.ViewModel;
 using Shiny;
+using MauiApp1.Pages;
 
 namespace MauiApp1
 {
@@ -37,6 +38,9 @@ namespace MauiApp1
 
             builder.Services.AddTransient<ListPage>();
             builder.Services.AddTransient<ListPageViewModel>();
+
+            builder.Services.AddTransient<SettingPage>();
+            builder.Services.AddTransient<SettingPageViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

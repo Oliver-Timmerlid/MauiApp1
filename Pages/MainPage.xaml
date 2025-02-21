@@ -15,6 +15,12 @@
                 HeightRequest="280"
                 SemanticProperties.Description="Alvdalskt hej"
                 Source="loggo.png" />
+            <Entry
+                x:Name="Name"
+                Placeholder="Skriv ditt namn"
+                TextColor="{DynamicResource Gray100}"/>
+            <Label
+                Text="{Binding DeviceUuid}" />
             <Button
                 x:Name="StarBtn"
                 BackgroundColor="{DynamicResource Teal9}"

@@ -12,12 +12,15 @@
         Route="MainPage" />-->
 
     <TabBar>
-        <Tab Title="Home">
+        <Tab Title="Hem">
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
-        <Tab Title="Settings">
+        <Tab Title="Sök">
             <ShellContent ContentTemplate="{DataTemplate local:ListPage}" />
         </Tab>
+        <Tab Title="Inställningar">
+            <ShellContent ContentTemplate="{DataTemplate local:Pages.SettingPage}" />
+         </Tab>
     </TabBar>
 
-</Shell>
+ </Shell>

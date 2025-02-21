@@ -21,8 +21,13 @@ namespace MauiApp1.Services
         {
             try
             {
+
+                //TEST FÖR MANUFACTURER DATA
+                //var manufacturerId = 0x1234;
+                //var customData = encoding.UTF8.GetBytes("MY_ID");
                 await _manager.StartAdvertising(new AdvertisementOptions
                 {
+                    //ManufacturerData = new ManufacturerData(manufacturerId, customData),
                     ServiceUuids = new string[] { serviceUuid.ToString() }
                 });
                 _logger.LogInformation($"Advertisement started successfully with UUID: {serviceUuid}");
