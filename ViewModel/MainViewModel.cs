@@ -1,45 +1,58 @@
-﻿using Android.Content;
+﻿using Android.Bluetooth;
+using Android.Content;
 using Android.DeviceLock;
 using Android.Telephony;
+using Android.Provider;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Java.Util;
 using MauiApp1.Services;
 using Microsoft.Maui.Devices;
 using System.Net.WebSockets;
+using System.Text;
 
 namespace MauiApp1.ViewModel;
 
 public partial class MainViewModel : ObservableObject
 {
     private readonly BluetoothAdvertisementService _broadcastService;
+    private readonly BluetoothAdapter _bluetoothAdapter;
 
     [ObservableProperty]
-    private string deviceUuid;
+    private string name;
 
-    private Android.Bluetooth.BluetoothAdapter? bluetoothAdapter;
-    
+    [ObservableProperty]
+    private byte[] encodedName;
+
+    [ObservableProperty]
+    private string encodedNameString;
+
+    [ObservableProperty]
+    private string uuid;
 
     public MainViewModel(BluetoothAdvertisementService broadcastService)
     {
         _broadcastService = broadcastService;
-        InitializeBluetoothAdapter();
-    }
+        _bluetoothAdapter = BluetoothAdapter.DefaultAdapter;
 
-    private void InitializeBluetoothAdapter()
-    {
-        bluetoothAdapter = Android.Bluetooth.BluetoothAdapter.DefaultAdapter;
-        DeviceUuid = bluetoothAdapter?.Address; // This gives the MAC address, but might be randomized.
-    }
+        // Retrieve the Bluetooth adapter MAC address
+        string deviceAddress = _bluetoothAdapter?.Address;
 
-    [RelayCommand]
-    private void StartBroadcasting()
-    {
-        //_broadcastService.StartAdvertisementAsync();
+        // Generate UUID from Bluetooth adapter MAC address
+        Uuid = UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(deviceAddress)).ToString();
     }
 
     [RelayCommand]
-    private void StopBroadcasting()
+    private async Task SaveName()
     {
-        //_broadcastService.StopAdvertisement();
+        if (string.IsNullOrEmpty(Name))
+        {
+            return;
+        }
+
+        //await Shell.Current.GoToAsync("ListPage");
+
+        EncodedName = Encoding.UTF8.GetBytes(Name);
+        EncodedNameString = EncodedName != null ? BitConverter.ToString(EncodedName) : "No data";
     }
 }

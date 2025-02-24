@@ -15,28 +15,31 @@
                 HeightRequest="280"
                 SemanticProperties.Description="Alvdalskt hej"
                 Source="loggo.png" />
+            
             <Entry
                 x:Name="Name"
                 Placeholder="Skriv ditt namn"
+                Text="{Binding Name, Mode=TwoWay}"
                 TextColor="{DynamicResource Gray100}"/>
-            <Label
-                Text="{Binding DeviceUuid}" />
+
+            <Label Text="{Binding Uuid}" />
             <Button
                 x:Name="StarBtn"
                 BackgroundColor="{DynamicResource Teal9}"
                 BorderColor="{DynamicResource Gray100}"
                 BorderWidth="3"
-                Command="{Binding StartBroadcastingCommand}"
+                Command="{Binding SaveNameCommand}"
                 CornerRadius="10"
                 FontSize="20"
                 HeightRequest="60"
                 HorizontalOptions="Center"
                 SemanticProperties.Hint="Start button to go to next page"
-                Text="Start"
+                Text="Spara namn"
                 TextColor="{DynamicResource Gray100}"
                 WidthRequest="100" />
+            <Label Text="{Binding EncodedNameString}" />
 
-            <Button
+            <!--<Button
                 x:Name="StopBtn"
                 BackgroundColor="{DynamicResource Teal9}"
                 BorderColor="{DynamicResource Gray100}"
@@ -49,7 +52,14 @@
                 SemanticProperties.Hint="Stop button to go to next page"
                 Text="Stop"
                 TextColor="{DynamicResource Gray100}"
-                WidthRequest="100" />
+                WidthRequest="100" />-
+                FontSize="20"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                SemanticProperties.Hint="Stop button to go to next page"
+                Text="Stop"
+                TextColor="{DynamicResource Gray100}"
+                WidthRequest="100" />-->
         </VerticalStackLayout>
     </ScrollView>
 
