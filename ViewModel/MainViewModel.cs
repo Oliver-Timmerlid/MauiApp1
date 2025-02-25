@@ -10,6 +10,7 @@ using MauiApp1.Services;
 using Microsoft.Maui.Devices;
 using System.Net.WebSockets;
 using System.Text;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 
 namespace MauiApp1.ViewModel;
 
@@ -21,27 +22,27 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string name;
 
-    [ObservableProperty]
-    private byte[] encodedName;
-
-    [ObservableProperty]
-    private string encodedNameString;
-
-    [ObservableProperty]
-    private string uuid;
+    private readonly string _androidId;
 
     public MainViewModel(BluetoothAdvertisementService broadcastService)
     {
         _broadcastService = broadcastService;
-        _bluetoothAdapter = BluetoothAdapter.DefaultAdapter;
+        //_bluetoothAdapter = BluetoothAdapter.DefaultAdapter;
 
-        // Retrieve the Bluetooth adapter MAC address
-        string deviceAddress = _bluetoothAdapter?.Address;
+        //// Retrieve the Bluetooth adapter MAC address
+        //string deviceAddress = _bluetoothAdapter?.Address;
 
-        // Generate UUID from Bluetooth adapter MAC address
-        Uuid = UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(deviceAddress)).ToString();
+        //// Generate UUID from Bluetooth adapter MAC address
+        //Uuid = UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(deviceAddress)).ToString();
+
+        _androidId = GetAndroidId();
     }
 
+    private string GetAndroidId()
+    {
+        var context = Android.App.Application.Context;
+        return Settings.Secure.GetString(context.ContentResolver, Settings.Secure.AndroidId);
+    }
     [RelayCommand]
     private async Task SaveName()
     {
@@ -52,7 +53,7 @@ public partial class MainViewModel : ObservableObject
 
         //await Shell.Current.GoToAsync("ListPage");
 
-        EncodedName = Encoding.UTF8.GetBytes(Name);
-        EncodedNameString = EncodedName != null ? BitConverter.ToString(EncodedName) : "No data";
+        //EncodedName = Encoding.UTF8.GetBytes(Name);
+        //EncodedNameString = EncodedName != null ? BitConverter.ToString(EncodedName) : "No data";
     }
 }

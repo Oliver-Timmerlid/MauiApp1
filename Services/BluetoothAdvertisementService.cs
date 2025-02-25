@@ -3,6 +3,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Shiny.BluetoothLE;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace MauiApp1.Services
 {
@@ -17,27 +19,26 @@ namespace MauiApp1.Services
             _logger = logger;
         }
 
-        public async Task StartAdvertisementAsync(Guid serviceUuid)
+        public async Task StartAdvertisementAsync(Guid[] serviceUuids) // tar in en array av Guids
         {
             try
             {
+                string[] serviceUuidStrings = serviceUuids.Select(uuid => uuid.ToString()).ToArray(); // konverterar Guids till strängar
 
-                //TEST FÖR MANUFACTURER DATA
-                //var manufacturerId = 0x1234;
-                //var customData = encoding.UTF8.GetBytes("MY_ID");
                 await _manager.StartAdvertising(new AdvertisementOptions
                 {
-                    //ManufacturerData = new ManufacturerData(manufacturerId, customData),
-                    ServiceUuids = new string[] { serviceUuid.ToString() }
+                    //ServiceUuids = new string[] { serviceUuid.ToString() }
+                    ServiceUuids = serviceUuidStrings
+
+
                 });
-                _logger.LogInformation($"Advertisement started successfully with UUID: {serviceUuid}");
+                _logger.LogInformation($"Advertisement started with Service UUIDs: {string.Join(", ", serviceUuidStrings)}");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to start advertisement.");
             }
         }
-
 
         public void StopAdvertisement()
         {

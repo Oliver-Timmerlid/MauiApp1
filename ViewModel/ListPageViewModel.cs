@@ -14,6 +14,13 @@ public partial class ListPageViewModel : ObservableObject
     private readonly Notify _notify;
     private readonly Guid targetUuid = new("12345678-1234-1234-1234-1234567890ab");
 
+    //Den ena ska vara filter och den andra ska vara firebase-doc-id som parsas till uuid
+    private readonly Guid[] serviceUuids = new Guid[]
+    {
+        Guid.Parse("12345678-1234-1234-1234-1234567890ab"), //klar
+        Guid.Parse("A495FF21-C5B1-4B44-B512-1370F02D74DF")
+    };
+
     [ObservableProperty]
     private ObservableCollection<ManagedScanResult> _devices;
 
@@ -36,7 +43,7 @@ public partial class ListPageViewModel : ObservableObject
         if (value)
         {
             _ = StartScanning();
-            _ = _bluetoothAdvertisementService.StartAdvertisementAsync(targetUuid);
+            _ = _bluetoothAdvertisementService.StartAdvertisementAsync(serviceUuids);
         }
         else
         {
