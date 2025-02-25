@@ -1,4 +1,4 @@
-﻿using Shiny.BluetoothLE;
+﻿    using Shiny.BluetoothLE;
 using Shiny.BluetoothLE.Managed;
 using System;
 using System.Collections.Generic;
@@ -45,7 +45,7 @@ public class BluetoothScan
 
         await _scanner.Start(new ScanConfig
         {
-            //ServiceUuids = new[] { serviceUuid.ToString() } // 👈 Add filter here
+            ServiceUuids = new[] { serviceUuid.ToString() } // 👈 Add filter here
         });
         _logger.LogInformation("Scan started successfully.");
 

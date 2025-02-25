@@ -5,6 +5,9 @@ using Shiny.BluetoothLE.Managed;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
+using Android.Provider;
+using Android.Content;
+
 namespace MauiApp1.ViewModel;
 
 public partial class ListPageViewModel : ObservableObject

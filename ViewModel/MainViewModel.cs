@@ -11,6 +11,8 @@ using Microsoft.Maui.Devices;
 using System.Net.WebSockets;
 using System.Text;
 
+
+
 namespace MauiApp1.ViewModel;
 
 public partial class MainViewModel : ObservableObject
@@ -30,6 +32,9 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string uuid;
 
+    [ObservableProperty]
+    private string newUuid;
+
     public MainViewModel(BluetoothAdvertisementService broadcastService)
     {
         _broadcastService = broadcastService;
@@ -40,6 +45,12 @@ public partial class MainViewModel : ObservableObject
 
         // Generate UUID from Bluetooth adapter MAC address
         Uuid = UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(deviceAddress)).ToString();
+
+        var context = Android.App.Application.Context;
+        var androidId = Settings.Secure.GetString(context.ContentResolver, Settings.Secure.AndroidId);
+
+        newUuid = androidId;
+        //newUuid = UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(deviceAddress)).ToString();
     }
 
     [RelayCommand]

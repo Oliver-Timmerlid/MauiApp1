@@ -23,6 +23,7 @@
                 TextColor="{DynamicResource Gray100}"/>
 
             <Label Text="{Binding Uuid}" />
+            <Label Text="{Binding NewUuid}" />
             <Button
                 x:Name="StarBtn"
                 BackgroundColor="{DynamicResource Teal9}"
