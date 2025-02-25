@@ -27,14 +27,6 @@ public partial class MainViewModel : ObservableObject
     public MainViewModel(BluetoothAdvertisementService broadcastService)
     {
         _broadcastService = broadcastService;
-        //_bluetoothAdapter = BluetoothAdapter.DefaultAdapter;
-
-        //// Retrieve the Bluetooth adapter MAC address
-        //string deviceAddress = _bluetoothAdapter?.Address;
-
-        //// Generate UUID from Bluetooth adapter MAC address
-        //Uuid = UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(deviceAddress)).ToString();
-
         _androidId = GetAndroidId();
     }
 
@@ -51,9 +43,5 @@ public partial class MainViewModel : ObservableObject
             return;
         }
 
-        //await Shell.Current.GoToAsync("ListPage");
-
-        //EncodedName = Encoding.UTF8.GetBytes(Name);
-        //EncodedNameString = EncodedName != null ? BitConverter.ToString(EncodedName) : "No data";
     }
 }

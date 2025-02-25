@@ -4,6 +4,13 @@ using MauiApp1.Services;
 using Shiny.BluetoothLE.Managed;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Android.Bluetooth;
+using Android.Content;
+using Android.DeviceLock;
+using Android.Telephony;
+using Android.Provider;
+using Java.Util;
+using System.Text;
 
 namespace MauiApp1.ViewModel;
 
@@ -13,13 +20,8 @@ public partial class ListPageViewModel : ObservableObject
     private readonly BluetoothAdvertisementService _bluetoothAdvertisementService;
     private readonly Notify _notify;
     private readonly Guid targetUuid = new("12345678-1234-1234-1234-1234567890ab");
-
-    //Den ena ska vara filter och den andra ska vara firebase-doc-id som parsas till uuid
-    private readonly Guid[] serviceUuids = new Guid[]
-    {
-        Guid.Parse("12345678-1234-1234-1234-1234567890ab"), //klar
-        Guid.Parse("A495FF21-C5B1-4B44-B512-1370F02D74DF")
-    };
+    private string andoridId;
+    private Guid[] serviceUuids;
 
     [ObservableProperty]
     private ObservableCollection<ManagedScanResult> _devices;
@@ -30,12 +32,27 @@ public partial class ListPageViewModel : ObservableObject
     [ObservableProperty]
     private bool isToggled;
 
+    
+
     public ListPageViewModel(BluetoothAdvertisementService advertisementService, BluetoothScan bluetoothScan, Notify notify)
     {
         _bluetoothAdvertisementService = advertisementService;
         _bluetoothScan = bluetoothScan;
         _notify = notify;
         _devices = [];
+        andoridId = GetAndroidId();
+        serviceUuids = new Guid[]
+        {
+            Guid.Parse("12345678-1234-1234-1234-1234567890ab"), // filter
+            Guid.Parse(andoridId) // andoridId
+        };
+    }
+
+    private string GetAndroidId()
+    {
+        var context = Android.App.Application.Context;
+        var androidId = Settings.Secure.GetString(context.ContentResolver, Settings.Secure.AndroidId);
+        return UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(androidId)).ToString();
     }
 
     partial void OnIsToggledChanged(bool value)
@@ -52,7 +69,7 @@ public partial class ListPageViewModel : ObservableObject
             IsScanning = false;
         }
     }
-    
+
     private async Task StartScanning()
     {
         IsScanning = true;
@@ -64,7 +81,6 @@ public partial class ListPageViewModel : ObservableObject
             IsToggled = false;
             return;
         }
-
 
         // Loop to scan for devices every 10 seconds
         while (IsToggled)
@@ -81,7 +97,7 @@ public partial class ListPageViewModel : ObservableObject
                     if (!Devices.Any(d => d.Peripheral.Equals(device.Peripheral)))
                     {
                         Devices.Add(device);
-                        
+
                         _ = _notify.SendNotificationAsync("New Device Found", $"Device: {device.Peripheral.Name}");
                     }
                 }
