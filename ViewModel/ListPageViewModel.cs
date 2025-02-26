@@ -20,7 +20,7 @@ public partial class ListPageViewModel : ObservableObject
     private readonly BluetoothAdvertisementService _bluetoothAdvertisementService;
     private readonly Notify _notify;
     private readonly Guid targetUuid = new("12345678-1234-1234-1234-1234567890ab");
-    private string andoridId;
+    private string androidId;
     private Guid[] serviceUuids;
 
     [ObservableProperty]
@@ -40,11 +40,11 @@ public partial class ListPageViewModel : ObservableObject
         _bluetoothScan = bluetoothScan;
         _notify = notify;
         _devices = [];
-        andoridId = GetAndroidId();
+        androidId = GetAndroidId();
         serviceUuids = new Guid[]
         {
-            Guid.Parse("12345678-1234-1234-1234-1234567890ab"), // filter
-            Guid.Parse(andoridId) // andoridId
+            targetUuid, // filter
+            Guid.Parse(androidId) // andoridId
         };
     }
 
