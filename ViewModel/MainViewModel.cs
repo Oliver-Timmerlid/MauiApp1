@@ -44,4 +44,10 @@ public partial class MainViewModel : ObservableObject
         }
 
     }
+    
+    //[RelayCommand]
+    //Private async Task NavigateToSettingPage() 
+    //{
+      //  await Shell.Current.GoToAsync("SettingPage");
+    //}
 }

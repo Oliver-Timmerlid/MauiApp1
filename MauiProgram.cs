@@ -3,6 +3,9 @@ using Microsoft.Extensions.Logging;
 using MauiApp1.ViewModel;
 using Shiny;
 using MauiApp1.Pages;
+using Plugin.Firebase;
+using Firebase;
+using Firebase.Firestore;
 
 namespace MauiApp1
 {
@@ -20,6 +23,8 @@ namespace MauiApp1
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<FirestoreService>();
+
             // Register Bluetooth services
             builder.Services.AddBluetoothLeHosting();
             builder.Services.AddBluetoothLE();
@@ -30,7 +35,6 @@ namespace MauiApp1
             builder.Services.AddSingleton<BluetoothAdvertisementService>();
             builder.Services.AddSingleton<BluetoothScan>();
             builder.Services.AddSingleton<Notify>();
-
 
             // Register pages and view models as singletons
             builder.Services.AddSingleton<MainPage>();

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "974714670968",
+    "firebase_url": "https://ulum-dalska-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ulum-dalska",
+    "storage_bucket": "ulum-dalska.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974714670968:android:34fae4d3d7408b63f0c28d",
+        "android_client_info": {
+          "package_name": "com.boolin.glamgledi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs_bYYeXx0a66k0PulnCWajfr81gKElSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
