@@ -18,7 +18,7 @@
             
             <Entry
                 x:Name="Name"
-                Placeholder="Skriv ditt namn"
+                Placeholder="Skriv ditt namn haha"
                 Text="{Binding Name, Mode=TwoWay}"
                 TextColor="{DynamicResource Gray100}"/>
 
