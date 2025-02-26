@@ -18,7 +18,8 @@
         <Tab Title="Sök">
             <ShellContent ContentTemplate="{DataTemplate local:ListPage}" />
         </Tab>
-        <Tab Title="Inställningar">
+        <Tab Icon="kugg.png"
+            Title="Inställningar">
             <ShellContent ContentTemplate="{DataTemplate local:Pages.SettingPage}" />
          </Tab>
     </TabBar>

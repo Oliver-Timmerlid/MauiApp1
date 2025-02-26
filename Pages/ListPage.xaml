@@ -15,12 +15,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-    <StackLayout>
-       <ImageButton Source="kugg.png"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" 
-                    <!-- Clicked="OnImageButtonClicked" --> />
-    </StackLayout>
+  
 
         <CollectionView Grid.Row="0" ItemsSource="{Binding Devices}">
             <CollectionView.ItemTemplate>
