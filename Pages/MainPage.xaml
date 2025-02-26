@@ -6,14 +6,7 @@
     xmlns:ViewModel="clr-namespace:MauiApp1.ViewModel"
     x:DataType="ViewModel:MainViewModel"
     BackgroundColor="{DynamicResource OffBlack}">
-    <StackLayout>
-       <ImageButton Source="kugg.png"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" 
-                    Command="{Binding NavigateToSettingPage}"
-                    <!-- Clicked="OnImageButtonClicked" --> />
-    </StackLayout>
-
+    
     <ScrollView>
         <VerticalStackLayout Padding="30,0" Spacing="25">
             <Image
@@ -44,7 +37,7 @@
                 Text="Spara namn"
                 TextColor="{DynamicResource Gray100}"
                 WidthRequest="100" />
-            <Label Text="{Binding EncodedNameString}" />
+            
 
             <!--<Button
                 x:Name="StopBtn"

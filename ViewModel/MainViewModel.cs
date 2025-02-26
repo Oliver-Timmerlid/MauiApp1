@@ -21,13 +21,13 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     private string name;
-
-    private readonly string _androidId;
+    [ObservableProperty]
+    private string androidId;
 
     public MainViewModel(BluetoothAdvertisementService broadcastService)
     {
         _broadcastService = broadcastService;
-        _androidId = GetAndroidId();
+        androidId = GetAndroidId();
     }
 
     private string GetAndroidId()
@@ -45,9 +45,4 @@ public partial class MainViewModel : ObservableObject
 
     }
     
-    //[RelayCommand]
-    //Private async Task NavigateToSettingPage() 
-    //{
-      //  await Shell.Current.GoToAsync("SettingPage");
-    //}
 }
