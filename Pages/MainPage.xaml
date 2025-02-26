@@ -37,7 +37,7 @@
                 Text="Spara namn"
                 TextColor="{DynamicResource Gray100}"
                 WidthRequest="100" />
-            <Label Text="{Binding EncodedNameString}" />
+            
 
             <!--<Button
                 x:Name="StopBtn"

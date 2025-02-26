@@ -50,7 +50,7 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		
-		<PackageReference Include="Shiny.Beacons" Version="3.3.4" />
+		
 		<PackageReference Include="Shiny.BluetoothLE" Version="3.3.4" />
 		<PackageReference Include="Shiny.BluetoothLE.Hosting" Version="3.3.4" />
 		<PackageReference Include="Shiny.Hosting.Maui" Version="3.3.4" />
