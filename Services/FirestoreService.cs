@@ -32,10 +32,20 @@ public class FirestoreService
     public async Task InsertUser(User user) 
     {
         await SetupFirestore();
+
+        
         await db.Collection("Users").AddAsync(user);
         
+    } 
+
+    public async Task<bool> CheckUser(string id) 
+    {
+        await SetupFirestore();
+
+        var query = db.Collection("Users").WhereEqualTo("AndroidId", id);
+        var snapshot = await query.GetSnapshotAsync();
+        return snapshot.Documents.Count > 0;
+
     }
-
-
 
 }

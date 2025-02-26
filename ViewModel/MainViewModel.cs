@@ -44,6 +44,11 @@ public partial class MainViewModel : ObservableObject
         {
             return;
         }
+        
+        if (await _firestoreService.CheckUser(AndroidId) == true)
+        {
+            return;
+        }
         User user = new User(Name, AndroidId, UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(androidId)).ToString());
         await _firestoreService.InsertUser(user); // copied from movie
     }
