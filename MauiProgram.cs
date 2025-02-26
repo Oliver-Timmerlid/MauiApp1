@@ -20,6 +20,9 @@ namespace MauiApp1
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            //
+            builder.Services.AddSingleton<FirestoreService>();
+
             // Register Bluetooth services
             builder.Services.AddBluetoothLeHosting();
             builder.Services.AddBluetoothLE();

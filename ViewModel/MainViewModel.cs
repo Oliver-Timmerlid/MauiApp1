@@ -18,16 +18,18 @@ public partial class MainViewModel : ObservableObject
 {
     private readonly BluetoothAdvertisementService _broadcastService;
     private readonly BluetoothAdapter _bluetoothAdapter;
+    private readonly FirestoreService _firestoreService;
 
     [ObservableProperty]
     private string name;
     [ObservableProperty]
     private string androidId;
 
-    public MainViewModel(BluetoothAdvertisementService broadcastService)
+    public MainViewModel(BluetoothAdvertisementService broadcastService, FirestoreService firestoreService)
     {
         _broadcastService = broadcastService;
         androidId = GetAndroidId();
+        _firestoreService = firestoreService;
     }
 
     private string GetAndroidId()
@@ -42,6 +44,7 @@ public partial class MainViewModel : ObservableObject
         {
             return;
         }
-
+        User user = new User(Name, AndroidId, UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(androidId)).ToString());
+        await _firestoreService.InsertUser(user); // copied from movie
     }
 }
