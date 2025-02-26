@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using MauiApp1.ViewModel;
 using Shiny;
 using MauiApp1.Pages;
-using Plugin.Firebase;
-using Firebase;
-using Firebase.Firestore;
+//using Plugin.Firebase;
+//using Firebase;
+//using Firebase.Firestore;
 
 namespace MauiApp1
 {
