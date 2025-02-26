@@ -43,7 +43,7 @@ public partial class ListPageViewModel : ObservableObject
         andoridId = GetAndroidId();
         serviceUuids = new Guid[]
         {
-            Guid.Parse("12345678-1234-1234-1234-1234567890ab"), // filter
+            targetUuid, // filter
             Guid.Parse(andoridId) // andoridId
         };
     }
