@@ -41,7 +41,7 @@
         </CollectionView>
 
         <HorizontalStackLayout Grid.Row="1" Padding="10">
-            <Label Text="Start Scanning" VerticalOptions="Center" />
+            <Label Text="Hitta Oliver" VerticalOptions="Center" />
             <Switch IsToggled="{Binding IsToggled, Mode=TwoWay}" WidthRequest="200" />
             <ActivityIndicator
                 IsRunning="{Binding IsScanning}"
