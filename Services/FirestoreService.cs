@@ -32,20 +32,52 @@ public class FirestoreService
     public async Task InsertUser(User user) 
     {
         await SetupFirestore();
-
-        
         await db.Collection("Users").AddAsync(user);
-        
     } 
 
     public async Task<bool> CheckUser(string id) 
     {
         await SetupFirestore();
-
         var query = db.Collection("Users").WhereEqualTo("AndroidId", id);
         var snapshot = await query.GetSnapshotAsync();
         return snapshot.Documents.Count > 0;
-
     }
+
+    //public async Task<User> GetUsers(string uuId)
+    //{
+    //    await SetupFirestore();
+    //    var query = db.Collection("Users").WhereEqualTo("Uuid", uuId);
+
+    //}
+
+    // copilot
+    public async Task<User> GetUser(string uuid)
+    {
+        await SetupFirestore();
+        var query = db.Collection("Users").WhereEqualTo("Uuid", uuid);
+        var snapshot = await query.GetSnapshotAsync();
+
+        if (snapshot.Documents.Count > 0)
+        {
+            var document = snapshot.Documents.First();
+            return document.ConvertTo<User>();
+        }
+        return null;
+    }
+
+    // update user
+    public async Task UpdateUser(User user)
+    {
+        await SetupFirestore();
+        var query = db.Collection("Users").WhereEqualTo("Uuid", user.Uuid);
+        var snapshot = await query.GetSnapshotAsync();
+        if (snapshot.Documents.Count > 0)
+        {
+            var document = snapshot.Documents.First();
+            await document.Reference.SetAsync(user);
+        }
+    }
+    
+
 
 }

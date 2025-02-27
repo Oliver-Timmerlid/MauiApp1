@@ -101,6 +101,10 @@ public partial class ListPageViewModel : ObservableObject
                         _ = _notify.SendNotificationAsync("New Device Found", $"Device: {device.Peripheral.Name}");
                     }
                 }
+
+                // här som patrik ska knäcka nöten
+
+
             });
 
             await Task.Delay(10000); // Pause for 10 seconds
