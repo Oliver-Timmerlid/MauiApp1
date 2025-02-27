@@ -19,12 +19,16 @@ public partial class ListPageViewModel : ObservableObject
     private readonly BluetoothScan _bluetoothScan;
     private readonly BluetoothAdvertisementService _bluetoothAdvertisementService;
     private readonly Notify _notify;
+    private readonly FirestoreService _firestoreService;
     private readonly Guid targetUuid = new("12345678-1234-1234-1234-1234567890ab");
-    private string andoridId;
-    private Guid[] serviceUuids;
+    private string androidId;
+    //private Guid[] serviceUuids;
 
     [ObservableProperty]
     private ObservableCollection<ManagedScanResult> _devices;
+
+    [ObservableProperty]
+    private ObservableCollection<User> _users;
 
     [ObservableProperty]
     private bool isScanning;
@@ -34,18 +38,20 @@ public partial class ListPageViewModel : ObservableObject
 
     
 
-    public ListPageViewModel(BluetoothAdvertisementService advertisementService, BluetoothScan bluetoothScan, Notify notify)
+    public ListPageViewModel(BluetoothAdvertisementService advertisementService, BluetoothScan bluetoothScan, Notify notify, FirestoreService firestoreService)
     {
         _bluetoothAdvertisementService = advertisementService;
         _bluetoothScan = bluetoothScan;
         _notify = notify;
-        _devices = [];
-        andoridId = GetAndroidId();
-        serviceUuids = new Guid[]
-        {
-            targetUuid, // filter
-            Guid.Parse(andoridId) // andoridId
-        };
+        _firestoreService = firestoreService;
+        _devices = new ObservableCollection<ManagedScanResult>();
+        _users = new ObservableCollection<User>();
+        androidId = GetAndroidId();
+        //serviceUuids = new Guid[]
+        //{
+        //    // targetUuid, filter
+        //    Guid.Parse(andoidId) // andoridId
+        //};
     }
 
     private string GetAndroidId()
@@ -60,7 +66,7 @@ public partial class ListPageViewModel : ObservableObject
         if (value)
         {
             _ = StartScanning();
-            _ = _bluetoothAdvertisementService.StartAdvertisementAsync(serviceUuids);
+            _ = _bluetoothAdvertisementService.StartAdvertisementAsync(androidId);
         }
         else
         {
@@ -85,31 +91,30 @@ public partial class ListPageViewModel : ObservableObject
         // Loop to scan for devices every 10 seconds
         while (IsToggled)
         {
-            var scannedDevices = await _bluetoothScan.StartScanningAsync(targetUuid);
-            //var scannedDevices = await _bluetoothScan.StartScanningAsync(Guid.Empty);
-
+            var scannedDevices = await _bluetoothScan.StartScanningAsync();
             _notify.CreateNotificationChannel();
 
-            await MainThread.InvokeOnMainThreadAsync(() =>
-            {
-                foreach (var device in scannedDevices)
-                {
-                    if (!Devices.Any(d => d.Peripheral.Equals(device.Peripheral)))
-                    {
-                        Devices.Add(device);
+            // eventuell nolla listan
 
-                        _ = _notify.SendNotificationAsync("New Device Found", $"Device: {device.Peripheral.Name}");
+            foreach (var device in scannedDevices)
+            {
+                
+                string serviceUuid = device.ServiceUuids[0].ToString();
+                if (!string.IsNullOrEmpty(serviceUuid))
+                {
+                    var user = await _firestoreService.GetUser(serviceUuid);
+                    if (user != null && !Users.Any(u => u.Uuid == user.Uuid))
+                    {
+                        Users.Add(user);
+                        await _notify.SendNotificationAsync("New User Found", $"User: {user.Name}");
                     }
                 }
+                
 
-                // här som patrik ska knäcka nöten
-
-
-            });
+            }
 
             await Task.Delay(10000); // Pause for 10 seconds
         }
-
         IsScanning = false;
     }
 }

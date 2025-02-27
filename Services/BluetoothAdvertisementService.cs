@@ -19,20 +19,20 @@ namespace MauiApp1.Services
             _logger = logger;
         }
 
-        public async Task StartAdvertisementAsync(Guid[] serviceUuids) // tar in en array av Guids
+        public async Task StartAdvertisementAsync(string serviceUuid) // tar in en array av Guids
         {
             try
             {
-                string[] serviceUuidStrings = serviceUuids.Select(uuid => uuid.ToString()).ToArray(); // konverterar Guids till strängar
+                //string[] serviceUuidStrings = serviceUuids.Select(uuid => uuid.ToString()).ToArray(); // konverterar Guids till strängar
 
                 await _manager.StartAdvertising(new AdvertisementOptions
                 {
-                    //ServiceUuids = new string[] { serviceUuid.ToString() }
-                    ServiceUuids = serviceUuidStrings
+                    ServiceUuids = new string[] { serviceUuid.ToString() }
+                    //ServiceUuids = serviceUuidStrings
 
 
                 });
-                _logger.LogInformation($"Advertisement started with Service UUIDs: {string.Join(", ", serviceUuidStrings)}");
+                _logger.LogInformation($"Advertisement started with Service UUIDs: {serviceUuid}");
             }
             catch (Exception ex)
             {

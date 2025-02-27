@@ -9,11 +9,16 @@
              Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
         <Label 
-            Text="settings!"
+            Text="Ändra namn"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Entry></Entry>
-        <Button Text="Tryck på robin"
+        <Entry          
+                x:Name="Name"
+                Placeholder="Skriv ditt namn"
+                Text="Elin"
+                TextColor="{DynamicResource Gray100}"/>
+
+        <Button Text="Spara"
                 TextColor="{DynamicResource Gray100}"
                 BackgroundColor="{DynamicResource Teal9}"
                 BorderColor="{DynamicResource Gray100}"
