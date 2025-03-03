@@ -16,8 +16,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-       <CollectionView Grid.Row="0" ItemsSource="{Binding Devices}">
-        <!--CollectionView Grid.Row="0" ItemsSource="{Binding Users}"-->
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Devices}">
+            <!--  CollectionView Grid.Row="0" ItemsSource="{Binding Users}"  -->
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="ble:ManagedScanResult">
                     <VerticalStackLayout
@@ -25,23 +25,30 @@
                         Padding="10"
                         BackgroundColor="{DynamicResource OffBlack}">
                         <HorizontalStackLayout Spacing="5">
-                            <Image Source="heart.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                            <Image
+                                HeightRequest="30"
+                                Source="heart.png"
+                                VerticalOptions="Center"
+                                WidthRequest="30" />
                             <!-- <Label FontSize="18" Text="{Binding Peripheral.Name, StringFormat='Device: {0}'}" /> -->
                             <Label FontSize="18" Text="{Binding Uuid, StringFormat='Device: {0}'}" />
-                            <!--Label FontSize="18" Text="{Binding Name, StringFormat='Device: {0}'}" /-->
-                            <!--kan vara unik-->
+                            <!--  Label FontSize="18" Text="{Binding Name, StringFormat='Device: {0}'}" /  -->
+                            <!--  kan vara unik  -->
                             <!--<Label FontSize="18" Text="{Binding ManufacturerData, StringFormat='Device: {0}'}" />  kopplad till BluetoothadvertisementService.cs-->
                             <!--<Label FontSize="14" Text="{Binding ServiceUuids[0], StringFormat='UUID: {0}'}" /> -->
-                            <!--detta är vårt eget serviceuuid, som är "filter"-->
+                            <!--  detta är vårt eget serviceuuid, som är "filter"  -->
                         </HorizontalStackLayout>
-                        <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="10,10,0,10"/>
+                        <BoxView
+                            Margin="10,10,0,10"
+                            BackgroundColor="Gray"
+                            HeightRequest="1" />
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <HorizontalStackLayout Grid.Row="1" Padding="10">
-            <Label Text="Hitta Oliver" VerticalOptions="Center" />
+            <Label Text="Starta sökning" VerticalOptions="Center" />
             <Switch IsToggled="{Binding IsToggled, Mode=TwoWay}" WidthRequest="200" />
             <ActivityIndicator
                 IsRunning="{Binding IsScanning}"

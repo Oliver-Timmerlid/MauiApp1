@@ -47,7 +47,11 @@ public partial class MainViewModel : ObservableObject
         
         if (await _firestoreService.CheckUser(AndroidId) == true)
         {
-            //await DisplayAlert("Hallå där!", "Ditt namn finns redan. Vill du ändra namn, gå till inställningar.", "OK"); //testa denna 
+            await Application.Current.MainPage.DisplayAlert(
+            "Hallå där!",
+            "Ditt namn finns redan.\nVill du ändra namn, gå till inställningar.",
+            "OK"
+            );
             return;
         }
         User user = new User(Name, AndroidId, UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(androidId)).ToString());

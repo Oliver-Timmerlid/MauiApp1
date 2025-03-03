@@ -41,17 +41,37 @@ namespace MauiApp1.ViewModel
         private async void GetCurrentUser()
         {
             User localUser = await _firestoreService.GetUser(serviceUuid);
-            CurrentName = localUser.Name;
-            user = localUser;
+            if (localUser == null)
+            {
+                CurrentName = "Inget namn angivet";
+            }
+            else
+            {
+                CurrentName = localUser.Name;
+                user = localUser;
+            }
         }
 
         [RelayCommand]
         private async Task SaveButton()
         {
-            user.Name = ChangedName;
-            await _firestoreService.UpdateUser(user);
-            //user = await _firestoreService.GetUser(serviceUuid);
-            //CurrentName = user.Name;
+            if (user == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Inget namn", "Gå till startstidan för att sätta namn", "OK");
+
+            }
+            else
+            {
+                user.Name = ChangedName;
+                await _firestoreService.UpdateUser(user);
+                //user = await _firestoreService.GetUser(serviceUuid);
+                //CurrentName = user.Name;
+                GetCurrentUser();
+            }
+
+        }
+        public void LoadCurrentUser()
+        {
             GetCurrentUser();
         }
     }

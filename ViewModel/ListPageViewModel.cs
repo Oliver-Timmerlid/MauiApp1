@@ -91,6 +91,9 @@ public partial class ListPageViewModel : ObservableObject
         // Loop to scan for devices every 10 seconds
         while (IsToggled)
         {
+            // eventuell nolla listan
+            Users.Clear();
+            
             var scannedDevices = await _bluetoothScan.StartScanningAsync();
             _notify.CreateNotificationChannel();
 
