@@ -57,4 +57,20 @@ public partial class MainViewModel : ObservableObject
         User user = new User(Name, AndroidId, UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(androidId)).ToString());
         await _firestoreService.InsertUser(user); // copied from movie
     }
+
+    public async void GetCurrentUser()
+    {
+        User localUser = await _firestoreService.GetUser(UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(androidId)).ToString());
+        if (localUser == null)
+        {
+            return;
+        }
+        else
+        {
+            Name = localUser.Name;
+        }
+    }
+
+
+
 }
