@@ -109,7 +109,7 @@ public partial class ListPageViewModel : ObservableObject
                     if (user != null && !Users.Any(u => u.Uuid == user.Uuid))
                     {
                         Users.Add(user);
-                        await _notify.SendNotificationAsync("New User Found", $"User: {user.Name}");
+                        await _notify.SendNotificationAsync($"{user.Name}", " , Vill tala älvdalska");
                     }
                 }
                 

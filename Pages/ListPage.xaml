@@ -12,11 +12,32 @@
 
     <Grid Padding="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <CollectionView Grid.Row="0" ItemsSource="{Binding Devices}">
+        <Label
+            Grid.Row="0"
+            FontSize="34"
+            HorizontalTextAlignment="Center"
+            Text="Vi vill prata Älvdalska!"
+            TextColor="{DynamicResource Teal9}" />
+
+        <HorizontalStackLayout Grid.Row="1" Padding="10">
+            <Label Text="Starta sökning" VerticalOptions="Center" />
+            <Switch
+                IsToggled="{Binding IsToggled, Mode=TwoWay}"
+                OnColor="red"
+                ThumbColor="Green"
+                WidthRequest="200" />
+            <ActivityIndicator
+                IsRunning="{Binding IsScanning}"
+                IsVisible="{Binding IsScanning}"
+                VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Users}">
             <!--  CollectionView Grid.Row="0" ItemsSource="{Binding Users}"  -->
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="ble:ManagedScanResult">
@@ -31,7 +52,7 @@
                                 VerticalOptions="Center"
                                 WidthRequest="30" />
                             <!-- <Label FontSize="18" Text="{Binding Peripheral.Name, StringFormat='Device: {0}'}" /> -->
-                            <Label FontSize="18" Text="{Binding Uuid, StringFormat='Device: {0}'}" />
+                            <Label FontSize="18" Text="{Binding Name, StringFormat='Device: {0}'}" />
                             <!--  Label FontSize="18" Text="{Binding Name, StringFormat='Device: {0}'}" /  -->
                             <!--  kan vara unik  -->
                             <!--<Label FontSize="18" Text="{Binding ManufacturerData, StringFormat='Device: {0}'}" />  kopplad till BluetoothadvertisementService.cs-->
@@ -47,13 +68,6 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <HorizontalStackLayout Grid.Row="1" Padding="10">
-            <Label Text="Starta sökning" VerticalOptions="Center" />
-            <Switch IsToggled="{Binding IsToggled, Mode=TwoWay}" WidthRequest="200" />
-            <ActivityIndicator
-                IsRunning="{Binding IsScanning}"
-                IsVisible="{Binding IsScanning}"
-                VerticalOptions="Center" />
-        </HorizontalStackLayout>
+
     </Grid>
 </ContentPage>

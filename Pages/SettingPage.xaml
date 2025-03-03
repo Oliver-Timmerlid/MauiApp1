@@ -20,6 +20,7 @@
             FontSize="34"
             HorizontalTextAlignment="Center"
             Text="Inställningar"
+            Margin="0,0,0,100"
             TextColor="{DynamicResource Teal9}" />
         <Frame
             Grid.Row="1"
