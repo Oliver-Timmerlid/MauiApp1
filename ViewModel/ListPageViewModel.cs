@@ -11,6 +11,7 @@ using Android.Telephony;
 using Android.Provider;
 using Java.Util;
 using System.Text;
+using MauiApp1.Models;
 
 namespace MauiApp1.ViewModel;
 
@@ -92,28 +93,31 @@ public partial class ListPageViewModel : ObservableObject
         while (IsToggled)
         {
             // eventuell nolla listan
-            Users.Clear();
+            //Users.Clear();
             
             var scannedDevices = await _bluetoothScan.StartScanningAsync();
             _notify.CreateNotificationChannel();
 
             // eventuell nolla listan
 
+
             foreach (var device in scannedDevices)
             {
-                
-                string serviceUuid = device.ServiceUuids[0].ToString();
-                if (!string.IsNullOrEmpty(serviceUuid))
+                if (device.ServiceUuids != null)
                 {
-                    var user = await _firestoreService.GetUser(serviceUuid);
-                    if (user != null && !Users.Any(u => u.Uuid == user.Uuid))
+                    string serviceUuid = device.ServiceUuids[0].ToString();
+                    if (!string.IsNullOrEmpty(serviceUuid))
                     {
-                        Users.Add(user);
-                        await _notify.SendNotificationAsync($"{user.Name}", " , Vill tala älvdalska");
+                        var user = await _firestoreService.GetUser(serviceUuid);
+                        if (user != null && !Users.Any(u => u.Uuid == user.Uuid))
+                        {
+                            Users.Add(user);
+
+                            await _notify.SendNotificationAsync($"{user.Name}", " Vill tala älvdalska");
+                        }
                     }
                 }
                 
-
             }
 
             await Task.Delay(10000); // Pause for 10 seconds

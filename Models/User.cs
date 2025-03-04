@@ -1,5 +1,7 @@
 using Google.Cloud.Firestore;
 
+namespace MauiApp1.Models;
+
 [FirestoreData]
 public class User{
 

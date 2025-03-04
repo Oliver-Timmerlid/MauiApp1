@@ -11,6 +11,7 @@ using Android.DeviceLock;
 using Android.Telephony;
 using Android.Provider;
 using CommunityToolkit.Mvvm.Input;
+using MauiApp1.Models;
 
 namespace MauiApp1.ViewModel
 {

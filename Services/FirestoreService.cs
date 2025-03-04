@@ -1,6 +1,7 @@
 
 
 using Google.Cloud.Firestore;
+using MauiApp1.Models;
 
 public class FirestoreService
 {

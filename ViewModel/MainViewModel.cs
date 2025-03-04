@@ -11,6 +11,7 @@ using Microsoft.Maui.Devices;
 using System.Net.WebSockets;
 using System.Text;
 using Microsoft.Maui.Controls.PlatformConfiguration;
+using MauiApp1.Models;
 
 namespace MauiApp1.ViewModel;
 
