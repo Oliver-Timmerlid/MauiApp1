@@ -39,11 +39,11 @@ namespace MauiApp1
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
 
-            builder.Services.AddTransient<ListPage>();
-            builder.Services.AddTransient<ListPageViewModel>();
+            builder.Services.AddSingleton<ListPage>();
+            builder.Services.AddSingleton<ListPageViewModel>();
 
-            builder.Services.AddTransient<SettingPage>();
-            builder.Services.AddTransient<SettingPageViewModel>();
+            builder.Services.AddSingleton<SettingPage>();
+            builder.Services.AddSingleton<SettingPageViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

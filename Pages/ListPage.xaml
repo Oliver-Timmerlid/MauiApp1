@@ -51,7 +51,7 @@
                                 VerticalOptions="Center"
                                 WidthRequest="30" />
                             
-                            <Label FontSize="18" Text="{Binding Name, StringFormat='Device: {0}'}" />
+                            <Label FontSize="18" Text="{Binding Name, StringFormat=' {0}'}" />
                             
                         </HorizontalStackLayout>
                         <BoxView
