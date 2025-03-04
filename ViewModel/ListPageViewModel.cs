@@ -93,7 +93,7 @@ public partial class ListPageViewModel : ObservableObject
         while (IsToggled)
         {
             // eventuell nolla listan
-            //Users.Clear();
+            Users.Clear();
             
             var scannedDevices = await _bluetoothScan.StartScanningAsync();
             _notify.CreateNotificationChannel();
@@ -120,7 +120,7 @@ public partial class ListPageViewModel : ObservableObject
                 
             }
 
-            await Task.Delay(10000); // Pause for 10 seconds
+            await Task.Delay(15000); // Pause for 10 seconds
         }
         IsScanning = false;
     }
