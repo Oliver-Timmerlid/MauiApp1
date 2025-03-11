@@ -79,15 +79,17 @@ public partial class ListPageViewModel : ObservableObject
 
     private async Task StartScanning()
     {
-        IsScanning = true;
+        User localUser = await _firestoreService.GetUser(androidId);
 
-        var status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-        if (status != PermissionStatus.Granted)
+        //felmeddelande utan namn
+        if (localUser == null)
         {
             IsScanning = false;
             IsToggled = false;
+            await Application.Current.MainPage.DisplayAlert("Fel", "Du måste ange ett namn innan du kan söka! Gå till Hem och ange namn.", "OK");
             return;
         }
+        IsScanning = true;
 
         // Loop to scan for devices every 10 seconds
         while (IsToggled)

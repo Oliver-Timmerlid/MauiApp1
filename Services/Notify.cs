@@ -28,7 +28,8 @@ public class Notify
                 Message = message,
                 Channel = "SoundChannel",
                 BadgeCount = 1, // Visar 1 vid på ikonen vid notiser
-                ScheduleDate = null // Set this to schedule it later
+                ScheduleDate = null, // Set this to schedule it later
+                Android = new AndroidNotificationManager
             };
 
             // Schedule the notification
@@ -52,7 +53,7 @@ public class Notify
         {
             Identifier = "SoundChannel",
             Importance = ChannelImportance.High,
-            Description = "Channel for important notifications"
+            Description = "Channel for important notifications",
         });
     }
 
