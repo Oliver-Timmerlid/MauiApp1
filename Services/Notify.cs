@@ -29,7 +29,6 @@ public class Notify
                 Channel = "SoundChannel",
                 BadgeCount = 1, // Visar 1 vid på ikonen vid notiser
                 ScheduleDate = null, // Set this to schedule it later
-                Android = new AndroidNotificationManager
             };
 
             // Schedule the notification
