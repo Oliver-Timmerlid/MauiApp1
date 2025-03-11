@@ -1,4 +1,5 @@
 ﻿using Android.Bluetooth;
+using Android.Locations; 
 using Android.Content;
 using Android.DeviceLock;
 using Android.Telephony;
@@ -31,6 +32,18 @@ public partial class MainViewModel : ObservableObject
         _broadcastService = broadcastService;
         androidId = GetAndroidId();
         _firestoreService = firestoreService;
+    }
+
+    public bool IsBluetoothEnabled()
+    {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter;
+        return bluetoothAdapter != null && bluetoothAdapter.IsEnabled;
+    }
+
+    public bool IsLocationEnabled()
+    {
+        LocationManager locationManager = (LocationManager)Application.Context.GetSystemService(Context.LocationService);
+        return locationManager.IsProviderEnabled(LocationManager.GpsProvider) || locationManager.IsProviderEnabled(LocationManager.NetworkProvider);
     }
 
     private string GetAndroidId()
