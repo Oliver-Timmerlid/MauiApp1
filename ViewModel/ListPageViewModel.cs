@@ -79,6 +79,8 @@ public partial class ListPageViewModel : ObservableObject
 
     private async Task StartScanning()
     {
+        
+
         User localUser = await _firestoreService.GetUser(androidId);
 
         //felmeddelande utan namn
@@ -91,7 +93,10 @@ public partial class ListPageViewModel : ObservableObject
         }
         IsScanning = true;
 
+        //var intent = new Intent(Android.Bluetooth.BluetoothAdapter.ActionRequestEnable);
+        //Platform.CurrentActivity.StartActivity(intent);
         // Loop to scan for devices every 10 seconds
+        await EnableBluetoothAndLocationAsync();
         while (IsToggled)
         {
             // eventuell nolla listan
@@ -126,4 +131,52 @@ public partial class ListPageViewModel : ObservableObject
         }
         IsScanning = false;
     }
+
+    public async Task EnableBluetoothAndLocationAsync()
+    {
+        if (!IsBluetoothEnabled())
+        {
+            await RequestBluetoothEnableAsync();  // Wait for Bluetooth to be enabled
+        }
+
+        if (!IsLocationEnabled())
+        {
+            OpenLocationSettings();  // Then open Location settings
+        }
+    }
+
+    public Task RequestBluetoothEnableAsync()
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        var intent = new Intent(BluetoothAdapter.ActionRequestEnable);
+        Platform.CurrentActivity.StartActivity(intent);
+
+        Task.Run(async () =>
+        {
+            await Task.Delay(3000); // Wait for 3 seconds before checking again
+            tcs.TrySetResult(IsBluetoothEnabled());
+        });
+
+        return tcs.Task;
+    }
+
+    public static bool IsBluetoothEnabled()
+    {
+        var bluetoothAdapter = BluetoothAdapter.DefaultAdapter;
+        return bluetoothAdapter != null && bluetoothAdapter.IsEnabled;
+    }
+
+    public static bool IsLocationEnabled()
+    {
+        var locationManager = (Android.Locations.LocationManager)Platform.CurrentActivity.GetSystemService(Android.Content.Context.LocationService);
+        return locationManager.IsProviderEnabled(Android.Locations.LocationManager.GpsProvider) ||
+               locationManager.IsProviderEnabled(Android.Locations.LocationManager.NetworkProvider);
+    }
+
+    public void OpenLocationSettings()
+    {
+        var intent = new Intent(Android.Provider.Settings.ActionLocationSourceSettings);
+        Platform.CurrentActivity.StartActivity(intent);
+    }
+
 }
