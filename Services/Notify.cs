@@ -27,7 +27,9 @@ public class Notify
                 Title = title,
                 Message = message,
                 Channel = "SoundChannel",
-                ScheduleDate = null // Set this to schedule it later
+                BadgeCount = 1, // Visar 1 vid på ikonen vid notiser
+                ScheduleDate = null, // Set this to schedule it later
+                
             };
 
             // Schedule the notification
@@ -50,7 +52,8 @@ public class Notify
         this._notificationManager.AddChannel(new Channel
         {
             Identifier = "SoundChannel",
-            Importance = ChannelImportance.High
+            Importance = ChannelImportance.High,
+            Description = "Channel for important notifications",
         });
     }
 
