@@ -120,7 +120,7 @@ public partial class ListPageViewModel : ObservableObject
                 
             }
 
-            await Task.Delay(15000); // Pause for 10 seconds
+            await Task.Delay(60000); // Pause for 10 seconds
         }
         IsScanning = false;
     }
