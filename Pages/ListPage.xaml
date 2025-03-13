@@ -37,7 +37,6 @@
         </HorizontalStackLayout>
 
         <CollectionView Grid.Row="2" ItemsSource="{Binding Users}">
-            <!--  CollectionView Grid.Row="0" ItemsSource="{Binding Users}"  -->
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="Model:User">
                     <VerticalStackLayout

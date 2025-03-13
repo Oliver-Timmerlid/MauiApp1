@@ -1,13 +1,9 @@
-﻿ using Shiny.BluetoothLE.Hosting;
-using System;
-using System.Threading.Tasks;
+﻿using Shiny.BluetoothLE.Hosting;
 using Microsoft.Extensions.Logging;
-using Shiny.BluetoothLE;
-using System.Text;
-using System.Security.Cryptography;
 
 namespace MauiApp1.Services
 {
+    
     public class BluetoothAdvertisementService
     {
         private readonly IBleHostingManager _manager;
@@ -19,18 +15,13 @@ namespace MauiApp1.Services
             _logger = logger;
         }
 
-        public async Task StartAdvertisementAsync(string serviceUuid) // tar in en array av Guids
+        public async Task StartAdvertisementAsync(string serviceUuid) // Takes an array of Guids
         {
             try
             {
-                //string[] serviceUuidStrings = serviceUuids.Select(uuid => uuid.ToString()).ToArray(); // konverterar Guids till strängar
-
                 await _manager.StartAdvertising(new AdvertisementOptions
                 {
                     ServiceUuids = new string[] { serviceUuid.ToString() }
-                    //ServiceUuids = serviceUuidStrings
-
-
                 });
                 _logger.LogInformation($"Advertisement started with Service UUIDs: {serviceUuid}");
             }
@@ -39,6 +30,8 @@ namespace MauiApp1.Services
                 _logger.LogError(ex, "Failed to start advertisement.");
             }
         }
+
+
 
         public void StopAdvertisement()
         {

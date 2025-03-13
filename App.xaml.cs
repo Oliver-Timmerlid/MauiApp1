@@ -1,12 +1,12 @@
-﻿namespace MauiApp1
+﻿namespace MauiApp1 // Define the namespace for the application
 {
-    public partial class App : Application
+    public partial class App : Application // Define the App class, inheriting from Application
     {
-        public App()
+        public App() // Constructor for App
         {
-            InitializeComponent();
+            InitializeComponent(); // Initialize the components defined in the XAML file
 
-            MainPage = new AppShell();
+            MainPage = new AppShell(); // Set the MainPage to an instance of AppShell
         }
     }
 }

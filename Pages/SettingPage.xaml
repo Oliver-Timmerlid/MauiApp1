@@ -13,7 +13,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-             <!-- <RowDefinition Height="Auto" /> -->
 
         </Grid.RowDefinitions>
         <Label
@@ -27,8 +26,6 @@
             BackgroundColor="{DynamicResource OffBlack}"
             BorderColor="{DynamicResource Gray100}">
             <VerticalStackLayout>
-
-                <!--  BorderColor="{DynamicResource Teal9}" CornerRadius="10"  -->
 
                 <Label
                     FontSize="24"
@@ -88,18 +85,7 @@
                     TextColor="{DynamicResource Gray100}"
                     WidthRequest="200" />
             </VerticalStackLayout>
-
         </Frame>
-        <!-- Bild längst ner -->
-        <!-- 
-        <Image 
-            Grid.Row="3"
-            Source="textloggo.png"
-            Aspect="AspectFit"
-            HeightRequest="80"
-            HorizontalOptions="Center"
-            VerticalOptions="End"
-            Margin="0,80,0,20"/> -->
     </Grid>
 </ContentPage>
 

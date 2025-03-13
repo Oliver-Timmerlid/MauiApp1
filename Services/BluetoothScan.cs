@@ -1,9 +1,5 @@
 ﻿using Shiny.BluetoothLE;
 using Shiny.BluetoothLE.Managed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Shiny;
 using System.Reactive.Linq;
@@ -36,7 +32,7 @@ public class BluetoothScan
             return _devices;
         }
 
-        //Tillagt massa skit för filtrering. Kommer returnera 0 devices då vi har ett specifikt UUID
+        // Added filtering, will return 0 devices since we have a specific UUID
         _logger.LogInformation($"Starting BLE scan.");
         _scanner = _bleManager.CreateManagedScanner();
 
@@ -45,7 +41,7 @@ public class BluetoothScan
 
         await _scanner.Start(new ScanConfig
         {
-            //ServiceUuids = new[] { serviceUuid.ToString() } // 👈 Add filter here
+    
         });
         _logger.LogInformation("Scan started successfully.");
 

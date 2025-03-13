@@ -6,12 +6,7 @@
     xmlns:local="clr-namespace:MauiApp1"
     Title="MauiApp1"
     BackgroundColor="{DynamicResource OffBlack}">
-
-    <!--<ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />-->
-
+<!--Toolbar -->
     <TabBar>
         <Tab Icon="home.png"
              Title="Hem">

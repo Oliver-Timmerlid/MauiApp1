@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Shiny;
 using Shiny.Notifications;
-using System.Security.Permissions;
 
-
+// Class used for notifications when users have been found
 public class Notify
 {
     private readonly INotificationManager _notificationManager;
@@ -14,7 +13,7 @@ public class Notify
         _notificationManager = notificationManager;
         _logger = logger;
     }
-
+    //Send notification
     public async Task SendNotificationAsync(string title, string message)
     {
         var result = await _notificationManager.RequestAccess();
@@ -38,9 +37,11 @@ public class Notify
             _logger.LogWarning("Notification access denied.");
         }
     }
+    //Used for soundnotifications
     public void CreateNotificationChannel()
     {
         var existingChannels = _notificationManager.GetChannels();
+        
             // Check if the channel "SoundChannel" already exists
         if (existingChannels.Any(c => c.Identifier == "SoundChannel"))
         {

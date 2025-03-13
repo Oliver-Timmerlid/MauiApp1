@@ -1,5 +1,3 @@
-
-
 using Google.Cloud.Firestore;
 using MauiApp1.Models;
 
@@ -8,34 +6,37 @@ public class FirestoreService
 
     private FirestoreDb db;
 
+    // Initializes the Firestore database if not already set up
     private async Task SetupFirestore()
     {
         if (db == null)
         {
+            //IMPORTANT! READ THIS!
+            //This is for adding firebase database to the application. If creating a new firebase database, this needs to be changed to the new firebase link
             var stream = await FileSystem.OpenAppPackageFileAsync("ulum-dalska-firebase-adminsdk-fbsvc-a4f09f4f41.json");
             var reader = new StreamReader(stream);
             var contents = reader.ReadToEnd();
     
     
-
+            // Create a new Firestor database instance with project settings
             db = new FirestoreDbBuilder
             {
                 ProjectId = "ulum-dalska",
                 ConverterRegistry = new ConverterRegistry 
-                {
-                    //new DateTimeToTimeConvert()
+                {                  
                 },
                 JsonCredentials = contents
             }.Build();
         }
     }
-
+    // Inserts a new user into the Firestore 'Users' collection
     public async Task InsertUser(User user) 
     {
         await SetupFirestore();
         await db.Collection("Users").AddAsync(user);
     } 
 
+    // Check if user in database
     public async Task<bool> CheckUser(string id) 
     {
         await SetupFirestore();
@@ -44,14 +45,7 @@ public class FirestoreService
         return snapshot.Documents.Count > 0;
     }
 
-    //public async Task<User> GetUsers(string uuId)
-    //{
-    //    await SetupFirestore();
-    //    var query = db.Collection("Users").WhereEqualTo("Uuid", uuId);
-
-    //}
-
-    // copilot
+    // Get User from database
     public async Task<User> GetUser(string uuid)
     {
         await SetupFirestore();
@@ -66,8 +60,7 @@ public class FirestoreService
         return null;
     }
 
-
-    // update user
+    // Update user in database
     public async Task UpdateUser(User user)
     {
         await SetupFirestore();
@@ -78,8 +71,5 @@ public class FirestoreService
             var document = snapshot.Documents.First();
             await document.Reference.SetAsync(user);
         }
-    }
-    
-
-
+    }    
 }

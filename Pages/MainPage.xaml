@@ -38,28 +38,6 @@
                 TextColor="{DynamicResource Gray100}"
                 WidthRequest="100" />
             
-
-            <!--<Button
-                x:Name="StopBtn"
-                BackgroundColor="{DynamicResource Teal9}"
-                BorderColor="{DynamicResource Gray100}"
-                BorderWidth="3"
-                Command="{Binding StopBroadcastingCommand}"
-                CornerRadius="10"
-                FontSize="20"
-                HeightRequest="60"
-                HorizontalOptions="Center"
-                SemanticProperties.Hint="Stop button to go to next page"
-                Text="Stop"
-                TextColor="{DynamicResource Gray100}"
-                WidthRequest="100" />-
-                FontSize="20"
-                HeightRequest="60"
-                HorizontalOptions="Center"
-                SemanticProperties.Hint="Stop button to go to next page"
-                Text="Stop"
-                TextColor="{DynamicResource Gray100}"
-                WidthRequest="100" />-->
         </VerticalStackLayout>
     </ScrollView>
 

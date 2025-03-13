@@ -1,13 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using MauiApp1.Services;
 using Shiny.BluetoothLE.Managed;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Android.Bluetooth;
-using Android.Content;
-using Android.DeviceLock;
-using Android.Telephony;
 using Android.Provider;
 using Java.Util;
 using System.Text;
@@ -17,14 +11,14 @@ namespace MauiApp1.ViewModel;
 
 public partial class ListPageViewModel : ObservableObject
 {
+    // Dependencies injected via constructor for Bluetooth scanning, notifications, Firestore
     private readonly BluetoothScan _bluetoothScan;
     private readonly BluetoothAdvertisementService _bluetoothAdvertisementService;
     private readonly Notify _notify;
     private readonly FirestoreService _firestoreService;
-    private readonly Guid targetUuid = new("12345678-1234-1234-1234-1234567890ab");
-    private string androidId;
-    //private Guid[] serviceUuids;
+    private string androidId; // Stores the unique Android ID.
 
+    // Observable properties for data binding in the View
     [ObservableProperty]
     private ObservableCollection<ManagedScanResult> _devices;
 
@@ -37,8 +31,7 @@ public partial class ListPageViewModel : ObservableObject
     [ObservableProperty]
     private bool isToggled;
 
-    
-
+    // Constructor initializing services and sets up the Android ID for the device
     public ListPageViewModel(BluetoothAdvertisementService advertisementService, BluetoothScan bluetoothScan, Notify notify, FirestoreService firestoreService)
     {
         _bluetoothAdvertisementService = advertisementService;
@@ -48,13 +41,9 @@ public partial class ListPageViewModel : ObservableObject
         _devices = new ObservableCollection<ManagedScanResult>();
         _users = new ObservableCollection<User>();
         androidId = GetAndroidId();
-        //serviceUuids = new Guid[]
-        //{
-        //    // targetUuid, filter
-        //    Guid.Parse(andoidId) // andoridId
-        //};
     }
 
+    // Helper function to retrieve the Android device unique ID
     private string GetAndroidId()
     {
         var context = Android.App.Application.Context;
@@ -62,23 +51,35 @@ public partial class ListPageViewModel : ObservableObject
         return UUID.NameUUIDFromBytes(Encoding.UTF8.GetBytes(androidId)).ToString();
     }
 
+    // This method is automatically invoked when 'IsToggled' property changes
     partial void OnIsToggledChanged(bool value)
     {
         if (value)
         {
-            _ = StartScanning();
+            _ = StartScanning(); // When toggled on, scanning and Bluetooth advertisement starts
             _ = _bluetoothAdvertisementService.StartAdvertisementAsync(androidId);
         }
         else
         {
-            _bluetoothScan.StopScanning();
+            _bluetoothScan.StopScanning(); // When toggled off, scanning and Bluetooth advertisement stops
             _bluetoothAdvertisementService.StopAdvertisement();
             IsScanning = false;
         }
     }
 
+    // Method that starts scanning for Bluetooth devices
     private async Task StartScanning()
     {
+        User localUser = await _firestoreService.GetUser(androidId);
+
+         // Error message if user hasn't entered their name
+        if (localUser == null)
+        {
+            IsScanning = false;
+            IsToggled = false;
+            await Application.Current.MainPage.DisplayAlert("Fel", "Du måste ange ett namn innan du kan söka! Gå till Hem och ange namn.", "OK");
+            return;
+        }
         IsScanning = true;
 
         var status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
@@ -89,17 +90,14 @@ public partial class ListPageViewModel : ObservableObject
             return;
         }
 
-        // Loop to scan for devices every 10 seconds
+        // Loop to scan for devices every 60 seconds
         while (IsToggled)
         {
-            // eventuell nolla listan
+            // Clear the user list
             Users.Clear();
             
             var scannedDevices = await _bluetoothScan.StartScanningAsync();
             _notify.CreateNotificationChannel();
-
-            // eventuell nolla listan
-
 
             foreach (var device in scannedDevices)
             {
@@ -116,11 +114,9 @@ public partial class ListPageViewModel : ObservableObject
                             await _notify.SendNotificationAsync($"{user.Name}", " Vill tala älvdalska");
                         }
                     }
-                }
-                
+                }                
             }
-
-            await Task.Delay(60000); // Pause for 10 seconds
+            await Task.Delay(60000); // Pause for 60 seconds
         }
         IsScanning = false;
     }
