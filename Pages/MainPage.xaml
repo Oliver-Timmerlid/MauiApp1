@@ -22,7 +22,7 @@
                 Text="{Binding Name, Mode=TwoWay}"
                 TextColor="{DynamicResource Gray100}"/>
 
-            <Label Text="{Binding AndroidId}" />
+           
             <Button
                 x:Name="StarBtn"
                 BackgroundColor="{DynamicResource Teal9}"
