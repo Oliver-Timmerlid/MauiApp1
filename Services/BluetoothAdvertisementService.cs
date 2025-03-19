@@ -1,11 +1,9 @@
 ﻿using Shiny.BluetoothLE.Hosting;
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Shiny.BluetoothLE;
 
 namespace MauiApp1.Services
 {
+    
     public class BluetoothAdvertisementService
     {
         private readonly IBleHostingManager _manager;
@@ -17,23 +15,22 @@ namespace MauiApp1.Services
             _logger = logger;
         }
 
-        public async Task StartAdvertisementAsync()
+        public async Task StartAdvertisementAsync(string serviceUuid) // Takes an array of Guids
         {
             try
             {
-
-                var customUuid = new Guid("12345678-1234-1234-1234-1234567890ab"); // Replace with your custom UUID
                 await _manager.StartAdvertising(new AdvertisementOptions
                 {
-                    ServiceUuids = new string[] { customUuid.ToString() }
+                    ServiceUuids = new string[] { serviceUuid.ToString() }
                 });
-                _logger.LogInformation($"Advertisement started successfully with UUID: {customUuid}");
+                _logger.LogInformation($"Advertisement started with Service UUIDs: {serviceUuid}");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to start advertisement.");
             }
         }
+
 
 
         public void StopAdvertisement()

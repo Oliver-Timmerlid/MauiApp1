@@ -1,9 +1,5 @@
 ﻿using Shiny.BluetoothLE;
 using Shiny.BluetoothLE.Managed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Shiny;
 using System.Reactive.Linq;
@@ -25,7 +21,7 @@ public class BluetoothScan
         _devices = new ObservableCollection<ManagedScanResult>();
     }
 
-    public async Task<ObservableCollection<ManagedScanResult>> StartScanningAsync(Guid serviceUuid)
+    public async Task<ObservableCollection<ManagedScanResult>> StartScanningAsync()
     {
         _logger.LogInformation("Requesting Bluetooth access...");
         var access = await _bleManager.RequestAccess();
@@ -36,10 +32,8 @@ public class BluetoothScan
             return _devices;
         }
 
-        //Tillagt massa skit för filtrering. Kommer returnera 0 devices då vi har ett specifikt UUID
-        _logger.LogInformation("Starting BLE scan...");
-        _scanner = _bleManager.CreateManagedScanner();
-        _logger.LogInformation($"Starting BLE scan for UUID: {serviceUuid}...");
+        // Added filtering, will return 0 devices since we have a specific UUID
+        _logger.LogInformation($"Starting BLE scan.");
         _scanner = _bleManager.CreateManagedScanner();
 
         // Clear any existing devices
@@ -47,11 +41,11 @@ public class BluetoothScan
 
         await _scanner.Start(new ScanConfig
         {
-            ServiceUuids = new[] { serviceUuid.ToString() } // 👈 Add filter here
+    
         });
         _logger.LogInformation("Scan started successfully.");
 
-        await Task.Delay(TimeSpan.FromSeconds(30)); // Simulate scan duration
+        await Task.Delay(TimeSpan.FromSeconds(15)); // Simulate scan duration
 
         // Subscribe to the Peripherals collection changes
         _scanner.Peripherals

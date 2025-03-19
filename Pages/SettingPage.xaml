@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApp1.Pages.SettingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ViewModel="clr-namespace:MauiApp1.ViewModel"
+    Title="SettingPage"
+    x:DataType="ViewModel:SettingPageViewModel"
+    BackgroundColor="{DynamicResource OffBlack}"
+    Shell.NavBarIsVisible="False">
+    <Grid Padding="20" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+        <Label
+            FontSize="34"
+            HorizontalTextAlignment="Center"
+            Text="Inställningar"
+            Margin="0,0,0,100"
+            TextColor="{DynamicResource Teal9}" />
+        <Frame
+            Grid.Row="1"
+            BackgroundColor="{DynamicResource OffBlack}"
+            BorderColor="{DynamicResource Gray100}">
+            <VerticalStackLayout>
+
+                <Label
+                    FontSize="24"
+                    HorizontalOptions="Center"
+                    Text="Nuvarande namn"
+                    VerticalOptions="Center" />
+
+                <HorizontalStackLayout>
+                    <Image
+                        HeightRequest="50"
+                        Source="heart.png"
+                        VerticalOptions="Center"
+                        WidthRequest="50" />
+                    <Entry
+                        FontSize="24"
+                        IsReadOnly="True"
+                        Placeholder="Nuvarande namn"
+                        Text="{Binding CurrentName}" />
+
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+
+        <Frame
+            Grid.Row="2"
+            BackgroundColor="{DynamicResource OffBlack}"
+            BorderColor="{DynamicResource Gray100}">
+
+            <VerticalStackLayout>
+                <Label
+                    FontSize="24"
+                    HorizontalOptions="Center"
+                    Text="Ändra namn"
+                    VerticalOptions="Center" />
+                <HorizontalStackLayout>
+                    <Image
+                        HeightRequest="50"
+                        Source="heart.png"
+                        VerticalOptions="Center"
+                        WidthRequest="50" />
+                    <Entry
+                        x:Name="Name"
+                        FontSize="24"
+                        Placeholder="Skriv ditt namn"
+                        Text="{Binding ChangedName}"
+                        TextColor="{DynamicResource Gray100}" />
+                </HorizontalStackLayout>
+
+                <Button
+                    Command="{Binding SaveButtonCommand}"
+                    BackgroundColor="{DynamicResource Teal9}"
+                    BorderColor="{DynamicResource Gray100}"
+                    BorderWidth="3"
+                    CornerRadius="10"
+                    FontSize="24"
+                    Text="Spara"
+                    TextColor="{DynamicResource Gray100}"
+                    WidthRequest="200" />
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>
+
+
+

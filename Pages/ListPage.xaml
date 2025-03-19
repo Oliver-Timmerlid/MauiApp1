@@ -4,32 +4,64 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ViewModel="clr-namespace:MauiApp1.ViewModel"
-    xmlns:ble="clr-namespace:Shiny.BluetoothLE.Managed;assembly=Shiny.BluetoothLE"
-    Title="NewPage1"
+    xmlns:Model="clr-namespace:MauiApp1.Models"
+    Title="ListPage"
     x:DataType="ViewModel:ListPageViewModel"
     BackgroundColor="{DynamicResource OffBlack}"
     Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout Padding="20">
-        <Button Command="{Binding StartScanningCommand}" Text="Scan for Devices" />
-        <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <ScrollView>
-            <CollectionView ItemsSource="{Binding Devices}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="ble:ManagedScanResult">
-                        <VerticalStackLayout
-                            Margin="5"
-                            Padding="10"
-                            BackgroundColor="LightGray">
-                            <Label FontSize="18" Text="{Binding Peripheral.Name, StringFormat='Device: {0}'}" />
-                            <Label FontSize="18" Text="{Binding LocalName, StringFormat='Device: {0}'}" />
-                            <Label FontSize="14" Text="{Binding ServiceUuids[0], StringFormat='UUID: {0}'}" />
-                            <Label FontSize="14" Text="{Binding Rssi, StringFormat='Signal Strength: {0} dBm'}" />
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
-    </VerticalStackLayout>
+        <Label
+            Grid.Row="0"
+            FontSize="34"
+            HorizontalTextAlignment="Center"
+            Text="Vi vill prata Älvdalska!"
+            TextColor="{DynamicResource Teal9}" />
+
+        <HorizontalStackLayout Grid.Row="1" Padding="10">
+            <Label Text="Starta sökning" VerticalOptions="Center" />
+            <Switch
+                IsToggled="{Binding IsToggled, Mode=TwoWay}"
+                
+                WidthRequest="200" />
+            <ActivityIndicator
+                IsRunning="{Binding IsScanning}"
+                IsVisible="{Binding IsScanning}"
+                VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Users}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="Model:User">
+                    <VerticalStackLayout
+                        Margin="5"
+                        Padding="10"
+                        BackgroundColor="{DynamicResource OffBlack}">
+                        <HorizontalStackLayout Spacing="5">
+                            <Image
+                                HeightRequest="30"
+                                Source="heart.png"
+                                VerticalOptions="Center"
+                                WidthRequest="30" />
+                            
+                            <Label FontSize="18" Text="{Binding Name, StringFormat=' {0}'}" />
+                            
+                        </HorizontalStackLayout>
+                        <BoxView
+                            Margin="10,10,0,10"
+                            BackgroundColor="Gray"
+                            HeightRequest="1" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+    </Grid>
 </ContentPage>
